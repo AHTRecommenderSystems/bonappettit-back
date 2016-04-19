@@ -39,8 +39,8 @@ public class Dish implements Item {
 		this.name = name;
 	}
 
-	public Set<Category> getCategories() {
-		return categories;
+	public Set<com.aht.neo4j.model.node.Category> getCategories() {
+		return (Set<com.aht.neo4j.model.node.Category>)(Object)categories;
 	}
 
 	public void setCategories(Set<Category> categories) {
@@ -55,5 +55,13 @@ public class Dish implements Item {
 	@Override
 	public String toString() {
 		return "id: " + id + " name: " + name;
+	}
+
+	public Set<com.aht.neo4j.model.relationship.Affinity> getAffinities() {
+		return (Set<com.aht.neo4j.model.relationship.Affinity>)(Object)affinities;
+	}
+
+	public void setAffinities(Set<Affinity> affinities) {
+		this.affinities = affinities;
 	}
 }

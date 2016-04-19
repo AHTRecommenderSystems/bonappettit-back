@@ -2,6 +2,7 @@ package com.aht.bonappettit.domain.relationship;
 
 import com.aht.bonappettit.domain.node.Dish;
 import com.aht.bonappettit.domain.node.User;
+import com.aht.neo4j.model.node.Item;
 import com.aht.neo4j.model.relationship.Event;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;
@@ -44,5 +45,10 @@ public class Click implements Event {
 
 	public void setOn(String on) {
 		this.on = on;
+	}
+
+	@Override
+	public Item getItem() {
+		return dish;
 	}
 }

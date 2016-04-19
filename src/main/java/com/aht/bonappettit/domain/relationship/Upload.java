@@ -1,5 +1,6 @@
 package com.aht.bonappettit.domain.relationship;
 
+import com.aht.neo4j.model.node.Item;
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.StartNode;
@@ -44,5 +45,10 @@ public class Upload implements Event {
 
 	public void setOn(String on) {
 		this.on = on;
+	}
+
+	@Override
+	public Item getItem() {
+		return dish;
 	}
 }

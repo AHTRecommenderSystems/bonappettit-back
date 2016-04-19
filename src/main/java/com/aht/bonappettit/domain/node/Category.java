@@ -33,7 +33,7 @@ public class Category implements com.aht.neo4j.model.node.Category {
 	public void setDishes(Set<Dish> dishes) {
 		this.dishes = dishes;
 	}
-	
+
 	public void addDish(Dish dish) {
 		if(!dishes.contains(dish))
 			dishes.add(dish);

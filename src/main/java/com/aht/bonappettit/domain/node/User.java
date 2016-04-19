@@ -2,6 +2,8 @@ package com.aht.bonappettit.domain.node;
 
 import java.util.Set;
 import java.util.HashSet;
+
+import com.aht.neo4j.model.relationship.Event;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
@@ -29,7 +31,7 @@ public class User implements com.aht.neo4j.model.node.User {
 	@Relationship(type = "CLICKED")
 	private Set<Click> clicks = new HashSet<Click>();
 	@Relationship(type = "RATED")
-	private Set<Rate> rates = new HashSet<Rate>();
+	private Set<Rate> ratings = new HashSet<Rate>();
 	@Relationship(type = "UPLOADED")
 	private Set<Upload> uploads = new HashSet<Upload>();
 	
@@ -109,8 +111,16 @@ public class User implements com.aht.neo4j.model.node.User {
 		this.since = since;
 	}
 
-	public Set<Neighbor> getNeighbors() {
-		return neighbors;
+	public Set<com.aht.neo4j.model.relationship.Neighbor> getNeighbors() {
+		return (Set<com.aht.neo4j.model.relationship.Neighbor>)(Object)neighbors;
+	}
+
+	@Override
+	public Set<Event> getEvents() {
+		Set<Event> events = new HashSet<Event>();
+		events.addAll(ratings);
+		// add all the events
+		return events;
 	}
 
 	public void setNeighbors(Set<Neighbor> neighbors) {

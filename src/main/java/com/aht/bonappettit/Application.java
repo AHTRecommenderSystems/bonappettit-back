@@ -20,7 +20,7 @@ public class Application extends Neo4jConfiguration {
 	@Override
 	@Bean
 	public Neo4jServer neo4jServer() {
-		return new RemoteServer("http://localhost:7474", "neo4j", "burros93");
+		return new RemoteServer("http://localhost:7474", "neo4j", "n0m3l0s3");
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.aht.bonappettit.domain.relationship;
 
+import com.aht.neo4j.model.node.Item;
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.StartNode;
 import org.neo4j.ogm.annotation.RelationshipEntity;
@@ -44,7 +45,12 @@ public class Rate implements Event {
 	public void setOn(String on) {
 		this.on = on;
 	}
-	
+
+	@Override
+	public Item getItem() {
+		return dish;
+	}
+
 	public float getRate() {
 		return value;
 	}
