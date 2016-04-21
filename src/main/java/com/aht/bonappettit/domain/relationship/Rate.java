@@ -1,10 +1,10 @@
 package com.aht.bonappettit.domain.relationship;
 
-import com.aht.neo4j.model.node.Item;
+import com.aht.api.model.node.Item;
+import com.aht.api.model.relationship.Event;
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.StartNode;
 import org.neo4j.ogm.annotation.RelationshipEntity;
-import com.aht.neo4j.model.relationship.Event;
 import com.aht.bonappettit.domain.node.Dish;
 import com.aht.bonappettit.domain.node.User;
 
@@ -46,7 +46,6 @@ public class Rate implements Event {
 		this.on = on;
 	}
 
-	@Override
 	public Item getItem() {
 		return dish;
 	}

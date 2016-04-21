@@ -1,8 +1,7 @@
-package com.aht.neo4j.model.node;
+package com.aht.api.model.node;
 
-import com.aht.neo4j.model.relationship.Affinity;
-import com.aht.neo4j.model.relationship.Event;
-import com.aht.neo4j.model.relationship.Neighbor;
+import com.aht.api.model.relationship.Event;
+import com.aht.api.model.relationship.Neighbor;
 
 import java.util.Set;
 

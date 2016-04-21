@@ -2,16 +2,19 @@ package com.aht.bonappettit.domain.node;
 
 import java.util.Set;
 import java.util.HashSet;
+
+import com.aht.api.model.node.Characteristic;
+import com.aht.api.model.node.Item;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 @NodeEntity
-public class Category implements com.aht.neo4j.model.node.Category {
+public class Category implements Characteristic {
 	@GraphId
 	private Long id;
 	private String name;
-	@Relationship(type = "HAS", direction = Relationship.INCOMING)
+	@Relationship(type = "HAS", direction = Relationship.UNDIRECTED)
 	private Set<Dish> dishes = new HashSet<Dish>();
 	
 	public Long getId() {
@@ -24,6 +27,10 @@ public class Category implements com.aht.neo4j.model.node.Category {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Set<Item> getItems() {
+		return (Set<Item>)(Object)dishes;
 	}
 
 	public Set<Dish> getDishes() {

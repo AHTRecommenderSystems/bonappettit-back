@@ -1,20 +1,19 @@
 package com.aht.bonappettit.domain.node;
 
-import java.util.Set;
-import java.util.HashSet;
-
-import com.aht.neo4j.model.relationship.Event;
-import org.neo4j.ogm.annotation.GraphId;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
-
+import com.aht.api.model.relationship.Event;
 import com.aht.bonappettit.domain.relationship.Click;
 import com.aht.bonappettit.domain.relationship.Neighbor;
 import com.aht.bonappettit.domain.relationship.Rate;
 import com.aht.bonappettit.domain.relationship.Upload;
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @NodeEntity
-public class User implements com.aht.neo4j.model.node.User {
+public class User implements com.aht.api.model.node.User {
 	@GraphId
 	private Long id;
 	private String name;
@@ -111,16 +110,13 @@ public class User implements com.aht.neo4j.model.node.User {
 		this.since = since;
 	}
 
-	public Set<com.aht.neo4j.model.relationship.Neighbor> getNeighbors() {
-		return (Set<com.aht.neo4j.model.relationship.Neighbor>)(Object)neighbors;
+	public Set<com.aht.api.model.relationship.Neighbor> getNeighbors() {
+		return (Set<com.aht.api.model.relationship.Neighbor>)(Object)neighbors;
 	}
 
-	@Override
 	public Set<Event> getEvents() {
-		Set<Event> events = new HashSet<Event>();
-		events.addAll(ratings);
-		// add all the events
-		return events;
+		// TODO: Return events, they could be only ratings, or include clicks and uploads
+		return (Set<Event>)(Object)ratings;
 	}
 
 	public void setNeighbors(Set<Neighbor> neighbors) {

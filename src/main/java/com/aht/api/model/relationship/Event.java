@@ -1,7 +1,7 @@
-package com.aht.neo4j.model.relationship;
+package com.aht.api.model.relationship;
 
-import com.aht.neo4j.model.node.Item;
-import com.aht.neo4j.model.node.User;
+import com.aht.api.model.node.Item;
+import com.aht.api.model.node.User;
 
 public interface Event {
 	public Object getId();

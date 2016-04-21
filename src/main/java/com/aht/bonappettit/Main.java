@@ -1,8 +1,10 @@
 package com.aht.bonappettit;
 
+import com.aht.api.recommender.ItemRecommenderGeneral;
+import com.aht.api.recommender.ItemRecommenderNeo4j;
+import com.aht.api.recommender.evaluator.ManhattanLength;
 import com.aht.bonappettit.serviceimpl.node.DishServiceImpl;
 import com.aht.bonappettit.serviceimpl.node.UserServiceImpl;
-import com.aht.recommend.ItemRecommender;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -51,15 +53,26 @@ public class Main {
 	UserServiceImpl userServiceImpl = context.getBean(UserServiceImpl.class);
 	System.out.println(userServiceImpl.retrieve(0).getNeighbors().size());
 */
-        Long id = Long.valueOf(314);
-        DishServiceImpl dishServiceImpl = context.getBean(DishServiceImpl.class);
-        Dish retrieved = dishServiceImpl.retrieve(id);
-        System.out.println(retrieved);
+		Long id = Long.valueOf(314);
+		DishServiceImpl dishServiceImpl = context.getBean(DishServiceImpl.class);
+		Dish retrieved = dishServiceImpl.retrieve(id);
+		System.out.println(retrieved);
 
-        ItemRecommender itemRecommender = new ItemRecommender();
-        Set<Dish> recommendations = (Set<Dish>)(Object)itemRecommender.getTopNRecommendationsByItem(retrieved,1);
-        System.out.println(recommendations);
+		Dish anotherDish = dishServiceImpl.retrieve((long)315);
+
+		ItemRecommenderNeo4j itemRecommenderNeo4j = new ItemRecommenderNeo4j();
+		Set<Dish> recommendations = (Set<Dish>)(Object)itemRecommenderNeo4j.getTopNRecommendationByItem(retrieved,10);
+		System.out.println(recommendations);
+
+		ManhattanLength ml = new ManhattanLength();
+		ml.getEvaluationForItems(retrieved, anotherDish);
+
+		ItemRecommenderGeneral itemRecommenderGeneral = new ItemRecommenderGeneral();
+		itemRecommenderGeneral.getTopNRecommendationByItem(retrieved,10);
+		System.out.println(retrieved.getCharacteristics());
+
+
+		/////////////////////////////////////////////////
 		((ConfigurableApplicationContext) context).close();
-
 	}
 }

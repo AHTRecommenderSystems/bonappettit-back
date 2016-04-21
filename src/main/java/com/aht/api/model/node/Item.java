@@ -1,6 +1,6 @@
-package com.aht.neo4j.model.node;
+package com.aht.api.model.node;
 
-import com.aht.neo4j.model.relationship.Affinity;
+import com.aht.api.model.relationship.Affinity;
 
 import java.util.Set;
 
@@ -8,6 +8,6 @@ public interface Item {
 	public Object getId();
 	public String getName();
 	public void setName(String name);
-	public Set<Category> getCategories();
+	public Set<Characteristic> getCharacteristics();
 	public Set<Affinity> getAffinities();
 }

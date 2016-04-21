@@ -23,8 +23,8 @@
 			<version>3.1.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.aht.neo4j</groupId>
-			<artifactId>aht-neo4j-connect</artifactId>
+			<groupId>com.aht.api</groupId>
+			<artifactId>aht-recommender-systems-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>

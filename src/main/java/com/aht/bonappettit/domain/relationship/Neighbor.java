@@ -8,51 +8,43 @@ import org.neo4j.ogm.annotation.StartNode;
 import com.aht.bonappettit.domain.node.User;
 
 @RelationshipEntity(type = "NEIGHBOR")
-public class Neighbor implements com.aht.neo4j.model.relationship.Neighbor {
+public class Neighbor implements com.aht.api.model.relationship.Neighbor {
 	@GraphId
 	private Long id;
 	@StartNode
-	private User first;
+	private User firstUser;
 	@EndNode
-	private User second;
+	private User secondUser;
 	private float similitude;
 	
 	public Neighbor() { }
 
-	public Neighbor(User first, User second, float similitude) { 
-		this.first = first;
-		this.second = second;
+	public Neighbor(User firstUser, User secondUser, float similitude) {
+		this.firstUser = firstUser;
+		this.secondUser = secondUser;
 		this.similitude = similitude;
 		
-		this.first.getNeighbors().add(this);
-		this.second.getNeighbors().add(this);
+		this.firstUser.getNeighbors().add(this);
+		this.secondUser.getNeighbors().add(this);
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public User getFirst() {
-		return first;
-	}
-
-	public void setFirst(User first) {
-		this.first = first;
-	}
-
-	public User getSecond() {
-		return second;
-	}
-
-	public void setSecond(User second) {
-		this.second = second;
-	}
-
-	public float getSimiluted() {
+	public Object getSimilitude() {
 		return similitude;
 	}
 
-	public void setSimilitude(float similitude) {
-		this.similitude = similitude;
+	public void setSimilitude(Object similitude) {
+		this.similitude = Float.parseFloat((String) similitude);
+	}
+
+	public com.aht.api.model.node.User getFirstUser() {
+		return firstUser;
+	}
+
+	public com.aht.api.model.node.User getSecondUser() {
+		return secondUser;
 	}
 }
