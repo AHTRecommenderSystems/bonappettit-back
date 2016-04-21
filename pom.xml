@@ -2,14 +2,32 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.aht</groupId>
+	<groupId>com.aht.bonappettit</groupId>
 	<artifactId>bonappettit-neo4j</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>bonappettit-neo4j Maven Webapp</name>
-	<url>http://maven.apache.org</url>
-	
+	<name>Bonappettit-neo4j Maven Webapp</name>
+	<description>Bonappettit is a web app project developed by AHTRecommenderSystems as a testing purpose
+		to the AHTRecommenderSystems API</description>
+	<url>https://github.com/AHTRecommenderSystems/bonappettit-back</url>
+
+	<developers>
+		<developer>
+			<name>Blanca Azucena Lopez Garduño</name>
+			<email>blankazucenalg@gmail.com</email>
+		</developer>
+		<developer>
+			<name>Hector Bautista</name>
+			<email>hbautistaj@gmail.com</email>
+		</developer>
+		<developer>
+			<name>Jose Castro</name>
+			<email>tonoescom@gmail.com</email>
+		</developer>
+	</developers>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -45,5 +63,15 @@
 	</dependencies>
 	<build>
 		<finalName>bonappettit-neo4j</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>
