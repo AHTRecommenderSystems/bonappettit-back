@@ -17,8 +17,8 @@ public class UserServiceImpl implements UserService {
 	@Autowired Session session;
 	@Autowired UserRepository repository;
 
-	public void create(User user) {
-		repository.save(user);
+	public User create(User user) {
+		return repository.save(user);
 	}
 
 	public User retrieve(long id) {
@@ -31,6 +31,10 @@ public class UserServiceImpl implements UserService {
 
 	public void delete(User user) {
 		repository.delete(user);
+	}
+
+	public void delete(long id) {
+		repository.delete(id);
 	}
 
 	public List<User> retrieveAll() {

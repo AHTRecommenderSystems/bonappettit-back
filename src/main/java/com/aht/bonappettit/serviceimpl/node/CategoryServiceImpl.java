@@ -14,8 +14,8 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired Session session;
 	@Autowired CategoryRepository repository;
 
-	public void create(Category category) {
-		repository.save(category);
+	public Category create(Category category) {
+		return repository.save(category);
 	}
 
 	public Category retrieve(long id) {
@@ -28,6 +28,10 @@ public class CategoryServiceImpl implements CategoryService {
 
 	public void delete(Category category) {
 		repository.delete(category);
+	}
+	
+	public void delete(long id) {
+		repository.delete(id);
 	}
 
 	public List<Category> retrieveAll() {

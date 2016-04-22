@@ -14,8 +14,8 @@ public class DishServiceImpl implements DishService {
 	@Autowired Session session;
 	@Autowired DishRepository repository;
 
-	public void create(Dish dish) {
-		repository.save(dish);
+	public Dish create(Dish dish) {
+		return repository.save(dish);
 	}
 
 	public Dish retrieve(long id) {
@@ -28,6 +28,10 @@ public class DishServiceImpl implements DishService {
 
 	public void delete(Dish dish) {
 		repository.delete(dish);
+	}
+
+	public void delete(long id) {
+		repository.delete(id);
 	}
 
 	public List<Dish> retrieveAll() {
