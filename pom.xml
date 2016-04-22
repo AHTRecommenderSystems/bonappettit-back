@@ -27,7 +27,6 @@
 		</developer>
 	</developers>
 
-
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -45,21 +44,14 @@
 			<artifactId>aht-recommender-systems-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<!-- jersey dependency -->		
 		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-neo4j</artifactId>
-			<version>4.0.0.RELEASE</version>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-core</artifactId>
+			<version>1.19</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-neo4j</artifactId>
-			<version>4.0.0.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-neo4j</artifactId>
-			<version>4.0.0.RELEASE</version>
-		</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>bonappettit-neo4j</finalName>
