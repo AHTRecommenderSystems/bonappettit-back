@@ -2,15 +2,14 @@ package com.aht.bonappettit.domain.node;
 
 import java.util.Set;
 import java.util.HashSet;
-
-import com.aht.api.model.node.Characteristic;
 import com.aht.api.model.node.Item;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
 @NodeEntity
-public class Category implements Characteristic {
+@SuppressWarnings("unchecked")
+public class Characteristic implements com.aht.api.model.node.Characteristic {
 	@GraphId
 	private Long id;
 	private String name;

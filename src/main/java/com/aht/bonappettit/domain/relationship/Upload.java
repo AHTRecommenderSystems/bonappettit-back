@@ -1,10 +1,10 @@
 package com.aht.bonappettit.domain.relationship;
 
 import com.aht.api.model.node.Item;
-import com.aht.api.model.relationship.Event;
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.StartNode;
+import com.aht.api.model.relationship.Event;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import com.aht.bonappettit.domain.node.User;
 import com.aht.bonappettit.domain.node.Dish;
@@ -18,6 +18,16 @@ public class Upload implements Event {
 	@EndNode
 	private Dish dish;
 	private String on;
+	
+	public Upload() { }
+	
+	public Upload(User user, Dish dish, String on) {
+		this.on = on;
+		this.user = user;
+		this.dish = dish;
+		this.user.getUploads().add(this);
+		this.dish.getUploads().add(this);
+	}
 
 	public Long getId() {
 		return id;

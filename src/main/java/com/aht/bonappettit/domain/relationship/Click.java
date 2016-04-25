@@ -19,6 +19,16 @@ public class Click implements Event {
 	private Dish dish;
 	private String on;
 
+	public Click() { }
+	
+	public Click(User user, Dish dish, String on) {
+		this.on = on;
+		this.user = user;
+		this.dish = dish;
+		this.user.getClicks().add(this);
+		this.dish.getClicks().add(this);
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -50,6 +60,4 @@ public class Click implements Event {
 	public Item getItem() {
 		return null;
 	}
-
-
 }
