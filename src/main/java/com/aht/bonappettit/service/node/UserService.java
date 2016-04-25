@@ -1,6 +1,6 @@
 package com.aht.bonappettit.service.node;
 
-import java.util.List;
+import java.util.LinkedList;
 import com.aht.bonappettit.domain.node.User;
 
 public interface UserService {
@@ -9,7 +9,7 @@ public interface UserService {
 	public void update(User user);
 	public void delete(User user);
 	public void delete(long id);
-	public List<User> retrieveAll();
+	public LinkedList<User> retrieveAll();
 	public User findByEmail(String email);
 	public User findByUsername(String username);
 }

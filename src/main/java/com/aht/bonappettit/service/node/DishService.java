@@ -1,6 +1,6 @@
 package com.aht.bonappettit.service.node;
 
-import java.util.List;
+import java.util.LinkedList;
 import com.aht.bonappettit.domain.node.Dish;
 
 public interface DishService {
@@ -9,5 +9,5 @@ public interface DishService {
 	public void update(Dish dish);
 	public void delete(Dish dish);
 	public void delete(long id);
-	public List<Dish> retrieveAll();
+	public LinkedList<Dish> retrieveAll();
 }
