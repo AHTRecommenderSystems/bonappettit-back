@@ -20,13 +20,12 @@ public class Application extends Neo4jConfiguration {
 	@Override
 	@Bean
 	public Neo4jServer neo4jServer() {
-		return new RemoteServer("http://localhost:7474", "neo4j", "n0m3l0s3");
+		return new RemoteServer("http://localhost:7474", "neo4j", "burros93");
 	}
 
 	@Override
 	@Bean
 	public SessionFactory getSessionFactory() {
 		return new SessionFactory("com.aht.bonappettit.domain");
-		//return new SessionFactory("com.aht.neo4j.model.node");
 	}
 }

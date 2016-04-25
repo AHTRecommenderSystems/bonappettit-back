@@ -1,34 +1,35 @@
 package com.aht.bonappettit;
 
-import com.aht.api.recommender.ItemRecommenderGeneral;
-import com.aht.api.recommender.ItemRecommenderNeo4j;
-import com.aht.api.recommender.evaluator.ManhattanLength;
-import com.aht.bonappettit.serviceimpl.node.DishServiceImpl;
-import com.aht.bonappettit.serviceimpl.node.UserServiceImpl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import com.aht.bonappettit.domain.node.Category;
-import com.aht.bonappettit.domain.node.Dish;
-import com.aht.bonappettit.serviceimpl.node.CategoryServiceImpl;
-
-import java.util.Set;
+import com.aht.bonappettit.serviceimpl.node.UserServiceImpl;
+import com.aht.bonappettit.serviceimpl.relationship.NeighborServiceImpl;
+import com.aht.bonappettit.domain.node.User;
+import com.aht.bonappettit.domain.relationship.Neighbor;
 
 public class Main {
 	public static void main(String[] args) {
 		ApplicationContext context = new AnnotationConfigApplicationContext(Application.class);
 
+		UserServiceImpl userService = context.getBean(UserServiceImpl.class);
+		NeighborServiceImpl neighborService = context.getBean(NeighborServiceImpl.class);
+		User first = userService.retrieve(1);
+		User second = userService.retrieve(2);
+		Neighbor neighbor = new Neighbor(first, second, (float) 1);
+		neighborService.create(neighbor);
+		
+		((ConfigurableApplicationContext) context).close();
 /** crea una relación "HAS" entre una categoría y un platillo
-	Category category = new Category();
+	Characteristic characteristic = new Characteristic();
 	Dish dish = new Dish();
 	
-	category.setName("Categoria 1");
+	characteristic.setName("Categoria 1");
 	dish.setName("Platillo 1");
-	category.addItem(dish);
+	characteristic.addItem(dish);
 	
-	CategoryServiceImpl categoryService = context.getBean(CategoryServiceImpl.class);
-	categoryService.create(category);
+	CharacteristicServiceImpl characteristicService = context.getBean(CharacteristicServiceImpl.class);
+	characteristicService.create(characteristic);
 */
 
 /** crea una relación "NEIGHBOR" entre dos usuarios
@@ -53,6 +54,8 @@ public class Main {
 	UserServiceImpl userServiceImpl = context.getBean(UserServiceImpl.class);
 	System.out.println(userServiceImpl.retrieve(0).getNeighbors().size());
 */
+
+/**
 		Long id = Long.valueOf(314);
 		DishServiceImpl dishServiceImpl = context.getBean(DishServiceImpl.class);
 		Dish retrieved = dishServiceImpl.retrieve(id);
@@ -72,7 +75,6 @@ public class Main {
 		System.out.println(retrieved.getCharacteristics());
 
 
-		/////////////////////////////////////////////////
-		((ConfigurableApplicationContext) context).close();
+*/
 	}
 }
