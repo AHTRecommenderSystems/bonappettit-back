@@ -3,6 +3,7 @@ package com.aht.bonappettit.domain.node;
 import java.util.Set;
 import java.util.HashSet;
 import com.aht.api.model.node.Item;
+import com.aht.api.model.relationship.Event;
 import com.aht.api.model.node.Characteristic;
 import com.aht.bonappettit.domain.relationship.Rate;
 import com.aht.bonappettit.domain.relationship.Click;
@@ -102,17 +103,18 @@ public class Dish implements Item {
 		this.affinities = affinities;
 	}
 
-	// get affinities interfaces
 	public Set<com.aht.api.model.relationship.Affinity> getModelAffinities() {
 		return (Set<com.aht.api.model.relationship.Affinity>)(Object)affinities;
 	}
 	
-	// get characteristics interfaces
 	public Set<Characteristic> getModelCharacteristics() {
 		return (Set<Characteristic>)(Object) characteristics;
 	}
 
-	@Override
+	public Set<Event> getEvents() {
+		return (Set<Event>)(Object) ratings ;
+	}
+
 	public String toString() {
 		return "id: " + id + " name: " + name;
 	}
