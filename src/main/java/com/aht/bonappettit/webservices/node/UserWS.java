@@ -24,7 +24,7 @@ import org.neo4j.ogm.session.result.ResultProcessingException;
 @Path("/userws")
 public class UserWS {
 	@Autowired UserServiceImpl userService;
-
+	
 	@POST
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -37,8 +37,6 @@ public class UserWS {
 				user.setName(name);
 			if(lastname != null)
 				user.setLastname(lastname);
-			if(lastnameII != null)
-				user.setLastnameII(lastnameII);
 			if(password != null)
 				user.setPassword(password);
 			if(gender != null)
@@ -61,7 +59,7 @@ public class UserWS {
 		}
 		return Response.status(200).entity(response.toString()).build();
 	}
-
+	
 	@POST
 	@Path("/retrieve")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -74,8 +72,6 @@ public class UserWS {
 				response.put("name", user.getName());
 			if(user.getLastname() != null)
 				response.put("lastname", user.getLastname());
-			if(user.getLastnameII() != null)
-				response.put("lastnameII", user.getLastnameII());
 			if(user.getPassword() != null)
 				response.put("password", user.getPassword());
 			if(user.getGender() != null)
@@ -108,8 +104,6 @@ public class UserWS {
 				user.setName(name);
 			if(lastname != null)
 				user.setLastname(lastname);
-			if(lastnameII != null)
-				user.setLastnameII(lastnameII);
 			if(password != null)
 				user.setPassword(password);
 			if(gender != null)
@@ -151,7 +145,6 @@ public class UserWS {
 	public Response retrieveAll() {
 		JSONObject response = new JSONObject();
 		JSONArray users = new JSONArray();
-
 		try {
 			LinkedList<User> userNodes = userService.retrieveAll();
 			users.put(userNodes);
@@ -160,47 +153,6 @@ public class UserWS {
 		} catch (Exception exception) {
 			response.put("success", false);
 		}
-		
 		return Response.status(200).entity(response.toString()).build();
 	}
-/**
-	public Response retrieveAll() {
-		JSONObject response = new JSONObject();
-		JSONArray users = new JSONArray();
-		
-		try {
-			LinkedList<User> userNodes = userService.retrieveAll();
-
-			for(User user : userNodes) {
-				JSONObject json = new JSONObject();
-				if(user.getId() != null)
-					json.put("id", user.getId());
-				if(user.getName() != null)
-					json.put("name", user.getName());
-				if(user.getLastname() != null)
-					json.put("lastname", user.getLastname());
-				if(user.getLastnameII() != null)
-					json.put("lastnameII", user.getLastnameII());
-				if(user.getPassword() != null)
-					json.put("password", user.getPassword());
-				if(user.getGender() != null)
-					json.put("gender", user.getGender());
-				if(user.getNationality() != null)
-					json.put("nationality", user.getNationality());
-				if(user.getBirthdate() != null)
-					json.put("birthdate", user.getBirthdate());
-				if(user.getEmail() != null)
-					json.put("email", user.getEmail());
-				if(user.getSince() != null)
-					json.put("since", user.getSince());
-				users.put(json);
-			}
-			response.put("users", users);
-			response.put("success", true);
-		} catch(Exception exception) {
-			response.put("success", false);
-		}
-		return Response.status(200).entity(response.toString()).build();
-	}
- */
 }
