@@ -3,22 +3,19 @@ package com.aht.bonappettit;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import com.aht.bonappettit.serviceimpl.node.UserServiceImpl;
-import com.aht.bonappettit.serviceimpl.relationship.NeighborServiceImpl;
-import com.aht.bonappettit.domain.node.User;
-import com.aht.bonappettit.domain.relationship.Neighbor;
+
+import com.aht.bonappettit.serviceimpl.node.CharacteristicServiceImpl;
+import com.aht.bonappettit.domain.node.Characteristic;
+import com.aht.bonappettit.domain.node.Dish;
+import com.aht.bonappettit.domain.node.Restaurant;
 
 public class Main {
 	public static void main(String[] args) {
 		ApplicationContext context = new AnnotationConfigApplicationContext(Application.class);
-
-		UserServiceImpl userService = context.getBean(UserServiceImpl.class);
-		NeighborServiceImpl neighborService = context.getBean(NeighborServiceImpl.class);
-		User first = userService.retrieve(1);
-		User second = userService.retrieve(2);
-		Neighbor neighbor = new Neighbor(first, second, (float) 1);
-		neighborService.create(neighbor);
 		
+		Restaurant restaurant = new Restaurant();
+		System.out.println(restaurant.getLongitude());
+
 		((ConfigurableApplicationContext) context).close();
 /** crea una relación "HAS" entre una categoría y un platillo
 	Characteristic characteristic = new Characteristic();
