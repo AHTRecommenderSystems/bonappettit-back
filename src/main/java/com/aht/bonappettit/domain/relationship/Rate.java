@@ -16,11 +16,11 @@ public class Rate implements Event {
 	@EndNode
 	private Dish dish;
 	private String on;
-	private double value;
+	private float value;
 	
 	public Rate() { }
 
-	public Rate(User user, Dish dish, double value) {
+	public Rate(User user, Dish dish, float value) {
 		this.user = user;
 		this.dish = dish;
 		this.value = value;
@@ -30,10 +30,6 @@ public class Rate implements Event {
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public User getUser() {
@@ -60,23 +56,15 @@ public class Rate implements Event {
 		this.on = on;
 	}
 
-	public double getValue() {
-		return value;
-	}
-
-	public void setValue(double value) {
-		this.value = value;
-	}
-
-	public Item getModelItem() {
+	public Item getItem() {
 		return dish;
 	}
 
-	public com.aht.api.model.node.User getModelUser() {
-		return user;
+	public float getRate() {
+		return value;
 	}
 
-	public double getModelValue() {
-		return value;
+	public void setRate(float value) {
+		this.value = value;
 	}
 }

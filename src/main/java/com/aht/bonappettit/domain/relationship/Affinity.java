@@ -16,11 +16,11 @@ public class Affinity implements com.aht.api.model.relationship.Affinity {
 	private Dish first;
 	@EndNode
 	private Dish second;
-	private double similitude;
+	private float similitude;
 	
 	public Affinity() { }
 
-	public Affinity(Dish first, Dish second, double similitude) {
+	public Affinity(Dish first, Dish second, float similitude) {
 		this.first = first;
 		this.second = second;
 		this.similitude = similitude;
@@ -30,6 +30,22 @@ public class Affinity implements com.aht.api.model.relationship.Affinity {
 
 	public Long getId() {
 		return id;
+	}
+
+	public float getSimilitude() {
+		return similitude;
+	}
+
+	public void setSimilitude(float similitude) {
+		this.similitude = similitude;
+	}
+
+	public Item getFirstItem() {
+		return first;
+	}
+
+	public Item getSecondItem() {
+		return second;
 	}
 
 	public void setId(Long id) {
@@ -50,26 +66,5 @@ public class Affinity implements com.aht.api.model.relationship.Affinity {
 
 	public void setSecond(Dish second) {
 		this.second = second;
-	}
-
-	public double getSimilitude() {
-		return similitude;
-	}
-
-	public void setSimilitude(double similitude) {
-		this.similitude = similitude;
-	}
-
-
-	public double getSimilitudeValue() {
-		return similitude;
-	}
-
-	public Item getFirstModelItem() {
-		return first;
-	}
-
-	public Item getSecondModelItem() {
-		return second;
 	}
 }
