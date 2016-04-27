@@ -16,7 +16,7 @@ public class Rate implements Event {
 	@EndNode
 	private Dish dish;
 	private String on;
-	private float value;
+	private double value;
 	
 	public Rate() { }
 
@@ -60,11 +60,23 @@ public class Rate implements Event {
 		return dish;
 	}
 
-	public float getRate() {
+	public double getRate() {
 		return value;
 	}
 
-	public void setRate(float value) {
+	public void setRate(double value) {
 		this.value = value;
+	}
+
+	public Item getModelItem() {
+		return dish;
+	}
+
+	public com.aht.api.model.node.User getModelUser() {
+		return user;
+	}
+
+	public double getModelValue() {
+		return value;
 	}
 }

@@ -117,18 +117,6 @@ public class Dish implements Item {
 		this.restaurants = restaurants;
 	}
 
-	public List<com.aht.api.model.node.Characteristic> getModelCharacteristics() {
-		return (List<com.aht.api.model.node.Characteristic>)(Object) characteristics;
-	}
-
-	public List<Event> getEvents() {
-		return (List<Event>)(Object) ratings;
-	}
-
-	public List<com.aht.api.model.relationship.Affinity> getModelAffinities() {
-		return (List<com.aht.api.model.relationship.Affinity>)(Object) affinities;
-	}
-
 	public void addCharacteristic(Characteristic characteristic) {
 		if(!characteristics.contains(characteristic))
 			characteristics.add(characteristic);
@@ -142,5 +130,21 @@ public class Dish implements Item {
 	@Override
 	public String toString() {
 		return "id: " + id + " name: " + name + " picture: " + picture + " description: " + description;
+	}
+
+	public Object getModelId() {
+		return id;
+	}
+
+	public List<Event> getModelEvents() {
+		return (List<Event>)(Object)ratings;
+	}
+
+	public List<com.aht.api.model.node.Characteristic> getModelCharacteristics() {
+		return (List<com.aht.api.model.node.Characteristic>)(Object)characteristics;
+	}
+
+	public List<com.aht.api.model.relationship.Affinity> getModelAffinities() {
+		return (List<com.aht.api.model.relationship.Affinity>)(Object)affinities;
 	}
 }

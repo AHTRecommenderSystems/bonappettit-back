@@ -57,12 +57,16 @@ public class Characteristic implements com.aht.api.model.node.Characteristic {
 			dishes.add(dish);
 	}
 
-	public List<Item> getItems() {
-		return (List<Item>)(Object) dishes;
-	}
-
 	@Override
 	public String toString() {
 		return "id: " + id + " name: " + name + " type: " + type;
+	}
+
+	public Object getModelId() {
+		return id;
+	}
+
+	public List<Item> getModelItems() {
+		return (List<Item>)(Object)dishes;
 	}
 }

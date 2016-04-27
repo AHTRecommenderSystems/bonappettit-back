@@ -141,13 +141,15 @@ public class User implements com.aht.api.model.node.User {
 				+ nationality + " password: " + password;
 	}
 
-	@Override
+	public Object getModelId() {
+		return id;
+	}
+
 	public List<com.aht.api.model.relationship.Neighbor> getModelNeighbors() {
 		return (List<com.aht.api.model.relationship.Neighbor>)(Object) neighbors;
 	}
 
-	@Override
 	public List<Event> getModelEvents() {
-		return (List<Event>)(Object) ratings;
+		return (List<Event>)(Object)ratings;
 	}
 }

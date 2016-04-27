@@ -60,4 +60,16 @@ public class Click implements Event {
 	public Item getItem() {
 		return null;
 	}
+
+	public Item getModelItem() {
+		return dish;
+	}
+
+	public com.aht.api.model.node.User getModelUser() {
+		return user;
+	}
+
+	public double getModelValue() {
+		return 0;
+	}
 }
