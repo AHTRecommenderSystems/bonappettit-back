@@ -19,11 +19,10 @@ public class Neighbor implements com.aht.api.model.relationship.Neighbor {
 	
 	public Neighbor() { }
 
-	public Neighbor(User firstUser, User secondUser, float similitude) {
+	public Neighbor(User firstUser, User secondUser, double similitude) {
 		this.firstUser = firstUser;
 		this.secondUser = secondUser;
 		this.similitude = similitude;
-		
 		this.firstUser.getNeighbors().add(this);
 		this.secondUser.getNeighbors().add(this);
 	}

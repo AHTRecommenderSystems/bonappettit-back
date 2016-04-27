@@ -115,6 +115,7 @@ public class Dish implements Item {
 	public void addCharacteristic(Characteristic characteristic) {
 		if(!characteristics.contains(characteristic))
 			characteristics.add(characteristic);
+			characteristic.addDish(this);
 	}
 
 	public String toString() {

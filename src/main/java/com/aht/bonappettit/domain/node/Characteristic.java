@@ -25,6 +25,12 @@ public class Characteristic implements com.aht.api.model.node.Characteristic {
 		this.name = name;
 	}
 
+	public Characteristic(Long id, String name, List<Dish> dishes) {
+		this.id = id;
+		this.name = name;
+		this.dishes = dishes;
+	}
+
 	public Long getId() {
 		return id;
 	}
