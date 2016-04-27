@@ -1,15 +1,15 @@
 package com.aht.bonappettit.domain.node;
 
-import com.aht.api.model.relationship.Event;
+import java.util.List;
+import java.util.LinkedList;
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 import com.aht.bonappettit.domain.relationship.Rate;
-import com.aht.bonappettit.domain.relationship.Click;
 import com.aht.bonappettit.domain.relationship.Upload;
 import com.aht.bonappettit.domain.relationship.Neighbor;
-import org.neo4j.ogm.annotation.Relationship;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.GraphId;
-import java.util.HashSet;
-import java.util.Set;
+import com.aht.bonappettit.domain.relationship.Click;
+import com.aht.api.model.relationship.Event;
 
 @NodeEntity
 @SuppressWarnings("unchecked")
@@ -17,27 +17,27 @@ public class User implements com.aht.api.model.node.User {
 	@GraphId
 	private Long id;
 	private String name;
-	private String lastname;
-	private String lastnameII;
-	private String password;
-	private String gender;
-	private String nationality;
-	private String birthdate;
 	private String email;
 	private String since;
+	private String gender;
+	private String password;
+	private String lastname;
+	private String birthdate;
+	private String nationality;
+
 	@Relationship(type = "NEIGHBOR")
-	private Set<Neighbor> neighbors = new HashSet<Neighbor>();
+	private List<Neighbor> neighbors = new LinkedList<>();
 	@Relationship(type = "CLICKED")
-	private Set<Click> clicks = new HashSet<Click>();
+	private List<Click> clicks = new LinkedList<>();
 	@Relationship(type = "RATED")
-	private Set<Rate> ratings = new HashSet<Rate>();
+	private List<Rate> ratings = new LinkedList<>();
 	@Relationship(type = "UPLOADED")
-	private Set<Upload> uploads = new HashSet<Upload>();
-		
+	private List<Upload> uploads = new LinkedList<>();
+
 	public Long getId() {
 		return id;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -46,28 +46,20 @@ public class User implements com.aht.api.model.node.User {
 		this.name = name;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getLastnameII() {
-		return lastnameII;
+	public String getSince() {
+		return since;
 	}
 
-	public void setLastnameII(String lastnameII) {
-		this.lastnameII = lastnameII;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setSince(String since) {
+		this.since = since;
 	}
 
 	public String getGender() {
@@ -78,12 +70,20 @@ public class User implements com.aht.api.model.node.User {
 		this.gender = gender;
 	}
 
-	public String getNationality() {
-		return nationality;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setNationality(String nationality) {
-		this.nationality = nationality;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getBirthdate() {
@@ -93,69 +93,61 @@ public class User implements com.aht.api.model.node.User {
 	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
-	
-	public String getEmail() {
-		return email;
+
+	public String getNationality() {
+		return nationality;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
-	public String getSince() {
-		return since;
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
 	}
 
-	public void setSince(String since) {
-		this.since = since;
-	}
-
-	public Set<Neighbor> getNeighbors() {
+	public List<Neighbor> getNeighbors() {
 		return neighbors;
 	}
 
-	public void setNeighbors(Set<Neighbor> neighbors) {
+	public void setNeighbors(List<Neighbor> neighbors) {
 		this.neighbors = neighbors;
 	}
 
-	public Set<Click> getClicks() {
+	public List<Click> getClicks() {
 		return clicks;
 	}
 
-	public void setClicks(Set<Click> clicks) {
+	public void setClicks(List<Click> clicks) {
 		this.clicks = clicks;
 	}
 
-	public Set<Rate> getRatings() {
+	public List<Rate> getRatings() {
 		return ratings;
 	}
 
-	public void setRatings(Set<Rate> ratings) {
+	public void setRatings(List<Rate> ratings) {
 		this.ratings = ratings;
 	}
 
-	public Set<Upload> getUploads() {
+	public List<Upload> getUploads() {
 		return uploads;
 	}
 
-	public void setUploads(Set<Upload> uploads) {
+	public void setUploads(List<Upload> uploads) {
 		this.uploads = uploads;
 	}
-	
-	// get neighbors interfaces
-	public Set<com.aht.api.model.relationship.Neighbor> getModelNeighbors() {
-		return (Set<com.aht.api.model.relationship.Neighbor>)(Object) neighbors;
-	}
 
-	// get ratings interfaces
-	public Set<Event> getModelEvents() {
-		// TODO: Return events, they could be only ratings, or include clicks and uploads
-		return (Set<Event>)(Object) ratings;
-	}
-
+	@Override
 	public String toString() {
-		return "name: " + name + " lastname: " + lastname + " lastnameII: " + lastnameII + " password: " + password + 
-				" gender: " + gender + " nationality: " + nationality + " birthdate: " + birthdate + " email: " + 
-				email + " since: " + since;
+		return "id: " + id + " name: " + name + " email: " + email + " since: " + since + " gender: " + gender
+				+ " lastname: " + lastname + " password: " + password + " birthdate: " + birthdate + " nationality: "
+				+ nationality + " password: " + password;
+	}
+
+	@Override
+	public List<com.aht.api.model.relationship.Neighbor> getModelNeighbors() {
+		return (List<com.aht.api.model.relationship.Neighbor>)(Object) neighbors;
+	}
+
+	@Override
+	public List<Event> getModelEvents() {
+		return (List<Event>)(Object) ratings;
 	}
 }

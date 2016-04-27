@@ -23,7 +23,6 @@ public class Neighbor implements com.aht.api.model.relationship.Neighbor {
 		this.firstUser = firstUser;
 		this.secondUser = secondUser;
 		this.similitude = similitude;
-		
 		this.firstUser.getNeighbors().add(this);
 		this.secondUser.getNeighbors().add(this);
 	}
