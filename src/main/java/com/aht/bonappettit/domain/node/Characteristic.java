@@ -18,6 +18,13 @@ public class Characteristic implements com.aht.api.model.node.Characteristic {
 	@Relationship(type = "HAS", direction = Relationship.UNDIRECTED)
 	private List<Dish> dishes = new LinkedList<>();
 
+	public Characteristic() { }
+
+	public Characteristic(Long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
 	public Long getId() {
 		return id;
 	}

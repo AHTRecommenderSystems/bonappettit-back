@@ -19,7 +19,6 @@ public class User implements com.aht.api.model.node.User {
 	private Long id;
 	private String name;
 	private String lastname;
-	private String lastnameII;
 	private String password;
 	private String gender;
 	private String nationality;
@@ -34,6 +33,18 @@ public class User implements com.aht.api.model.node.User {
 	private Set<Rate> ratings = new HashSet<Rate>();
 	@Relationship(type = "UPLOADED")
 	private Set<Upload> uploads = new HashSet<Upload>();
+
+	public User(Long id, String name, String lastname, String password, String gender, String nationality, String birthdate, String email, String since) {
+		this.id = id;
+		this.name = name;
+		this.lastname = lastname;
+		this.password = password;
+		this.gender = gender;
+		this.nationality = nationality;
+		this.birthdate = birthdate;
+		this.email = email;
+		this.since = since;
+	}
 
 	public Long getId() {
 		return id;
@@ -57,14 +68,6 @@ public class User implements com.aht.api.model.node.User {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
-	}
-
-	public String getLastnameII() {
-		return lastnameII;
-	}
-
-	public void setLastnameII(String lastnameII) {
-		this.lastnameII = lastnameII;
 	}
 
 	public String getPassword() {
@@ -148,7 +151,7 @@ public class User implements com.aht.api.model.node.User {
 	}
 
 	public String toString() {
-		return "name: " + name + " lastname: " + lastname + " lastnameII: " + lastnameII + " password: " + password + 
+		return "name: " + name + " lastname: " + lastname + " password: " + password +
 				" gender: " + gender + " nationality: " + nationality + " birthdate: " + birthdate + " email: " + 
 				email + " since: " + since;
 	}

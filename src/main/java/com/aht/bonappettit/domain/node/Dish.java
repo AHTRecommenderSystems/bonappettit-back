@@ -30,6 +30,16 @@ public class Dish implements Item {
 	@Relationship(type = "AFFINITY")
 	private List<Affinity> affinities = new LinkedList<>();
 
+	public Dish() { }
+
+	public Dish(Long id, String name, String picture, String description, List<Characteristic> characteristics) {
+		this.id = id;
+		this.name = name;
+		this.picture = picture;
+		this.description = description;
+		this.characteristics = characteristics;
+	}
+
 	public Long getId() {
 		return id;
 	}
