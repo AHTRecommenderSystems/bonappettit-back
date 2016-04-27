@@ -1,5 +1,7 @@
 package com.aht.bonappettit.domain.node;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 import com.aht.api.model.node.Item;
@@ -14,10 +16,14 @@ public class Characteristic implements com.aht.api.model.node.Characteristic {
 	private Long id;
 	private String name;
 	@Relationship(type = "HAS", direction = Relationship.UNDIRECTED)
-	private Set<Dish> dishes = new HashSet<Dish>();
-	
+	private List<Dish> dishes = new LinkedList<>();
+
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -28,15 +34,11 @@ public class Characteristic implements com.aht.api.model.node.Characteristic {
 		this.name = name;
 	}
 
-	public Set<Item> getItems() {
-		return (Set<Item>)(Object)dishes;
-	}
-
-	public Set<Dish> getDishes() {
+	public List<Dish> getDishes() {
 		return dishes;
 	}
 
-	public void setDishes(Set<Dish> dishes) {
+	public void setDishes(List<Dish> dishes) {
 		this.dishes = dishes;
 	}
 
@@ -48,5 +50,13 @@ public class Characteristic implements com.aht.api.model.node.Characteristic {
 	@Override
 	public String toString() {
 		return "id: " + id + " name: " + name;
+	}
+
+	public Object getModelId() {
+		return id;
+	}
+
+	public List<Item> getModelItems() {
+		return (List<Item>)(Object)dishes;
 	}
 }

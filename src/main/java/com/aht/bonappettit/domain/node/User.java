@@ -9,6 +9,7 @@ import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.GraphId;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @NodeEntity
@@ -33,9 +34,13 @@ public class User implements com.aht.api.model.node.User {
 	private Set<Rate> ratings = new HashSet<Rate>();
 	@Relationship(type = "UPLOADED")
 	private Set<Upload> uploads = new HashSet<Upload>();
-		
+
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -93,7 +98,7 @@ public class User implements com.aht.api.model.node.User {
 	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -101,7 +106,7 @@ public class User implements com.aht.api.model.node.User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getSince() {
 		return since;
 	}
@@ -141,21 +146,22 @@ public class User implements com.aht.api.model.node.User {
 	public void setUploads(Set<Upload> uploads) {
 		this.uploads = uploads;
 	}
-	
-	// get neighbors interfaces
-	public Set<com.aht.api.model.relationship.Neighbor> getModelNeighbors() {
-		return (Set<com.aht.api.model.relationship.Neighbor>)(Object) neighbors;
-	}
-
-	// get ratings interfaces
-	public Set<Event> getModelEvents() {
-		// TODO: Return events, they could be only ratings, or include clicks and uploads
-		return (Set<Event>)(Object) ratings;
-	}
 
 	public String toString() {
 		return "name: " + name + " lastname: " + lastname + " lastnameII: " + lastnameII + " password: " + password + 
 				" gender: " + gender + " nationality: " + nationality + " birthdate: " + birthdate + " email: " + 
 				email + " since: " + since;
+	}
+
+	public Object getModelId() {
+		return id;
+	}
+
+	public List<com.aht.api.model.relationship.Neighbor> getModelNeighbors() {
+		return (List<com.aht.api.model.relationship.Neighbor>)(Object)neighbors;
+	}
+
+	public List<Event> getModelEvents() {
+		return (List<Event>)(Object)ratings;
 	}
 }
