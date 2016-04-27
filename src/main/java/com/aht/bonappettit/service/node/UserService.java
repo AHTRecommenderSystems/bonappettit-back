@@ -11,5 +11,4 @@ public interface UserService {
 	public void delete(long id);
 	public LinkedList<User> retrieveAll();
 	public User findByEmail(String email);
-	public User findByUsername(String username);
 }
