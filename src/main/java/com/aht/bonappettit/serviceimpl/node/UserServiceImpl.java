@@ -3,13 +3,12 @@ package com.aht.bonappettit.serviceimpl.node;
 import java.util.LinkedList;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.helpers.collection.MapUtil;
-import org.springframework.stereotype.Service;
-
 import com.aht.bonappettit.domain.node.User;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.aht.bonappettit.repository.node.UserRepository;
 import com.aht.bonappettit.service.node.UserService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,14 +36,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public LinkedList<User> retrieveAll() {
-		return new LinkedList<User>(session.loadAll(User.class));
+		return new LinkedList<>(session.loadAll(User.class));
 	}
 
 	public User findByEmail(String email) {
 		return (User) session.queryForObject(User.class, "match (user:User {email: {email}}) return user", MapUtil.map("email", email));		
-	}
-
-	public User findByUsername(String username) {
-		return (User) session.queryForObject(User.class, "match (user:User {username: {username}}) return user", MapUtil.map("username", username));
 	}
 }
