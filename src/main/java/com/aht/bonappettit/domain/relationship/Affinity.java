@@ -17,6 +17,16 @@ public class Affinity implements com.aht.api.model.relationship.Affinity {
 	@EndNode
 	private Dish second;
 	private float similitude;
+	
+	public Affinity() { }
+
+	public Affinity(Dish first, Dish second, float similitude) {
+		this.first = first;
+		this.second = second;
+		this.similitude = similitude;
+		this.first.getAffinities().add(this);
+		this.second.getAffinities().add(this);
+	}
 
 	public Long getId() {
 		return id;

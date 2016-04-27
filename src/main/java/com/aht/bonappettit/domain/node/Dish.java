@@ -2,33 +2,34 @@ package com.aht.bonappettit.domain.node;
 
 import java.util.Set;
 import java.util.HashSet;
-
-import com.aht.api.model.node.Characteristic;
 import com.aht.api.model.node.Item;
-import org.neo4j.ogm.annotation.GraphId;
-import org.neo4j.ogm.annotation.Relationship;
-
-import com.aht.bonappettit.domain.relationship.Affinity;
-import com.aht.bonappettit.domain.relationship.Click;
+import com.aht.api.model.relationship.Event;
+import com.aht.api.model.node.Characteristic;
 import com.aht.bonappettit.domain.relationship.Rate;
+import com.aht.bonappettit.domain.relationship.Click;
 import com.aht.bonappettit.domain.relationship.Upload;
+import com.aht.bonappettit.domain.relationship.Affinity;
+import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.GraphId;
 
+@SuppressWarnings("unchecked")
 public class Dish implements Item {
 	@GraphId
 	private Long id;
 	private String name;
+	private String picture; 
+	private String description;
 	@Relationship(type = "HAS", direction = Relationship.UNDIRECTED)
-	private Set<Category> categories = new HashSet<Category>();
+	private Set<Characteristic> characteristics = new HashSet<Characteristic>();
 	@Relationship(type = "CLICKED")
 	private Set<Click> clicks = new HashSet<Click>();
 	@Relationship(type = "RATED")
-	private Set<Rate> rates = new HashSet<Rate>();
+	private Set<Rate> ratings = new HashSet<Rate>();
 	@Relationship(type = "UPLOADED")
 	private Set<Upload> uploads = new HashSet<Upload>();
 	@Relationship(type = "AFFINITY")
 	private Set<Affinity> affinities = new HashSet<Affinity>();
 
-	
 	public Long getId() {
 		return id;
 	}
@@ -40,30 +41,81 @@ public class Dish implements Item {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Set<Characteristic> getCharacteristics() {
-		return (Set<Characteristic>)(Object) categories;
-	}
-
-	public void setCategories(Set<Category> categories) {
-		this.categories = categories;
+	
+	public String getPicture() {
+		return picture;
 	}
 	
-	public void addCategory(Category category) {
-		if(!categories.contains(category))
-			categories.add(category);
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public void addCharacteristic(Characteristic characteristic) {
+		if(!characteristics.contains(characteristic))
+			characteristics.add(characteristic);
 	}
 
-	@Override
-	public String toString() {
-		return "id: " + id + " name: " + name;
+	public Set<Characteristic> getCharacteristics() {
+		return characteristics;
 	}
 
-	public Set<com.aht.api.model.relationship.Affinity> getAffinities() {
-		return (Set<com.aht.api.model.relationship.Affinity>)(Object)affinities;
+	public void setCharacteristics(Set<Characteristic> characteristics) {
+		this.characteristics = characteristics;
+	}
+
+	public Set<Click> getClicks() {
+		return clicks;
+	}
+
+	public void setClicks(Set<Click> clicks) {
+		this.clicks = clicks;
+	}
+
+	public Set<Rate> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(Set<Rate> ratings) {
+		this.ratings = ratings;
+	}
+
+	public Set<Upload> getUploads() {
+		return uploads;
+	}
+
+	public void setUploads(Set<Upload> uploads) {
+		this.uploads = uploads;
+	}
+
+	public Set<Affinity> getAffinities() {
+		return affinities;
 	}
 
 	public void setAffinities(Set<Affinity> affinities) {
 		this.affinities = affinities;
+	}
+
+	public Set<com.aht.api.model.relationship.Affinity> getModelAffinities() {
+		return (Set<com.aht.api.model.relationship.Affinity>)(Object)affinities;
+	}
+	
+	public Set<Characteristic> getModelCharacteristics() {
+		return (Set<Characteristic>)(Object) characteristics;
+	}
+
+	public Set<Event> getEvents() {
+		return (Set<Event>)(Object) ratings ;
+	}
+
+	public String toString() {
+		return "id: " + id + " name: " + name;
 	}
 }

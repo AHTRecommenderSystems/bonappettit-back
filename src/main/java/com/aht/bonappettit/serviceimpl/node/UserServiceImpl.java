@@ -1,6 +1,5 @@
 package com.aht.bonappettit.serviceimpl.node;
 
-import java.util.List;
 import java.util.LinkedList;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.helpers.collection.MapUtil;
@@ -17,8 +16,8 @@ public class UserServiceImpl implements UserService {
 	@Autowired Session session;
 	@Autowired UserRepository repository;
 
-	public void create(User user) {
-		repository.save(user);
+	public User create(User user) {
+		return repository.save(user);
 	}
 
 	public User retrieve(long id) {
@@ -33,7 +32,11 @@ public class UserServiceImpl implements UserService {
 		repository.delete(user);
 	}
 
-	public List<User> retrieveAll() {
+	public void delete(long id) {
+		repository.delete(id);
+	}
+
+	public LinkedList<User> retrieveAll() {
 		return new LinkedList<User>(session.loadAll(User.class));
 	}
 

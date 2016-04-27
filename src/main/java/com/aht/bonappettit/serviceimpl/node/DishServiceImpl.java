@@ -1,6 +1,5 @@
 package com.aht.bonappettit.serviceimpl.node;
 
-import java.util.List;
 import java.util.LinkedList;
 import org.neo4j.ogm.session.Session;
 import com.aht.bonappettit.domain.node.Dish;
@@ -14,8 +13,8 @@ public class DishServiceImpl implements DishService {
 	@Autowired Session session;
 	@Autowired DishRepository repository;
 
-	public void create(Dish dish) {
-		repository.save(dish);
+	public Dish create(Dish dish) {
+		return repository.save(dish);
 	}
 
 	public Dish retrieve(long id) {
@@ -30,7 +29,11 @@ public class DishServiceImpl implements DishService {
 		repository.delete(dish);
 	}
 
-	public List<Dish> retrieveAll() {
+	public void delete(long id) {
+		repository.delete(id);
+	}
+
+	public LinkedList<Dish> retrieveAll() {
 		return new LinkedList<Dish>(session.loadAll(Dish.class));
 	}
 }

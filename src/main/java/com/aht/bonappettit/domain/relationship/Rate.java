@@ -17,6 +17,16 @@ public class Rate implements Event {
 	private Dish dish;
 	private String on;
 	private float value;
+	
+	public Rate() { }
+
+	public Rate(User user, Dish dish, float value) {
+		this.user = user;
+		this.dish = dish;
+		this.value = value;
+		this.user.getRatings().add(this);
+		this.dish.getRatings().add(this);
+	}
 
 	public Long getId() {
 		return id;
