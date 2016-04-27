@@ -33,6 +33,10 @@ public class Upload implements Event {
 		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -57,7 +61,15 @@ public class Upload implements Event {
 		this.on = on;
 	}
 
-	public Item getItem() {
-		return null;
+	public Item getModelItem() {
+		return dish;
+	}
+
+	public com.aht.api.model.node.User getModelUser() {
+		return user;
+	}
+
+	public double getModelValue() {
+		return 0;
 	}
 }

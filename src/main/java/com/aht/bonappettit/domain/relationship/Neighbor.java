@@ -15,11 +15,11 @@ public class Neighbor implements com.aht.api.model.relationship.Neighbor {
 	private User firstUser;
 	@EndNode
 	private User secondUser;
-	private float similitude;
+	private double similitude;
 	
 	public Neighbor() { }
 
-	public Neighbor(User firstUser, User secondUser, float similitude) {
+	public Neighbor(User firstUser, User secondUser, double similitude) {
 		this.firstUser = firstUser;
 		this.secondUser = secondUser;
 		this.similitude = similitude;
@@ -31,19 +31,43 @@ public class Neighbor implements com.aht.api.model.relationship.Neighbor {
 		return id;
 	}
 
-	public Object getSimilitude() {
-		return similitude;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public void setSimilitude(Object similitude) {
-		this.similitude = Float.parseFloat((String) similitude);
-	}
-
-	public com.aht.api.model.node.User getFirstUser() {
+	public User getFirstUser() {
 		return firstUser;
 	}
 
-	public com.aht.api.model.node.User getSecondUser() {
+	public void setFirstUser(User firstUser) {
+		this.firstUser = firstUser;
+	}
+
+	public User getSecondUser() {
+		return secondUser;
+	}
+
+	public void setSecondUser(User secondUser) {
+		this.secondUser = secondUser;
+	}
+
+	public double getSimilitude() {
+		return similitude;
+	}
+
+	public void setSimilitude(double similitude) {
+		this.similitude = similitude;
+	}
+
+	public double getSimilitudeValue() {
+		return similitude;
+	}
+
+	public com.aht.api.model.node.User getFirstModelUser() {
+		return firstUser;
+	}
+
+	public com.aht.api.model.node.User getSecondModelUser() {
 		return secondUser;
 	}
 }
