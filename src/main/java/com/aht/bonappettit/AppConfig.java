@@ -15,7 +15,7 @@ import org.springframework.data.neo4j.server.Neo4jServer;
 @EnableTransactionManagement
 //@EnableNeo4jRepositories("com.aht.neo4j.repository")
 @EnableNeo4jRepositories("com.aht.bonappettit.repository")
-public class Application extends Neo4jConfiguration {
+public class AppConfig extends Neo4jConfiguration {
 
 	@Override
 	@Bean
