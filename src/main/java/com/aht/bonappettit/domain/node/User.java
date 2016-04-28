@@ -26,13 +26,13 @@ public class User implements com.aht.api.model.node.User {
 	private String nationality;
 
 	@Relationship(type = "NEIGHBOR")
-	private List<Neighbor> neighbors = new LinkedList<>();
+	private List<Neighbor> neighbors = new LinkedList<Neighbor>();
 	@Relationship(type = "CLICKED")
-	private List<Click> clicks = new LinkedList<>();
+	private List<Click> clicks = new LinkedList<Click>();
 	@Relationship(type = "RATED")
-	private List<Rate> ratings = new LinkedList<>();
+	private List<Rate> ratings = new LinkedList<Rate>();
 	@Relationship(type = "UPLOADED")
-	private List<Upload> uploads = new LinkedList<>();
+	private List<Upload> uploads = new LinkedList<Upload>();
 
 	public Long getId() {
 		return id;

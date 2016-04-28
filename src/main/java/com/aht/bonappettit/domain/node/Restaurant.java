@@ -18,7 +18,7 @@ public class Restaurant {
 	private int avg_price;
 	private String url;
 	@Relationship(type = "SERVED_AT", direction = Relationship.INCOMING)
-	private List<Dish> dishes = new LinkedList<>();
+	private List<Dish> dishes = new LinkedList<Dish>();
 	
 	public Long getId() {
 		return id;

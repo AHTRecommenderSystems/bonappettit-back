@@ -4,17 +4,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.aht.bonappettit.serviceimpl.node.CharacteristicServiceImpl;
-import com.aht.bonappettit.domain.node.Characteristic;
-import com.aht.bonappettit.domain.node.Dish;
-import com.aht.bonappettit.domain.node.Restaurant;
-
 public class Main {
 	public static void main(String[] args) {
-		ApplicationContext context = new AnnotationConfigApplicationContext(Application.class);
+		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 		
-		Restaurant restaurant = new Restaurant();
-		System.out.println(restaurant.getLongitude());
 
 		((ConfigurableApplicationContext) context).close();
 /** crea una relación "HAS" entre una categoría y un platillo

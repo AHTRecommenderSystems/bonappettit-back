@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.aht.bonappettit.repository.node.UserRepository;
 import com.aht.bonappettit.service.node.UserService;
 
-
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired Session session;
@@ -36,7 +35,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public LinkedList<User> retrieveAll() {
-		return new LinkedList<>(session.loadAll(User.class));
+		return new LinkedList<User>(session.loadAll(User.class));
 	}
 
 	public User findByEmail(String email) {

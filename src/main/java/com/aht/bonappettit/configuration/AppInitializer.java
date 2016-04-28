@@ -11,7 +11,7 @@ import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import com.aht.bonappettit.Application;
+import com.aht.bonappettit.AppConfig;
 import com.sun.jersey.spi.spring.container.servlet.SpringServlet;
 
 public class AppInitializer implements WebApplicationInitializer {
@@ -23,7 +23,7 @@ public class AppInitializer implements WebApplicationInitializer {
 	    encodingFilter.addMappingForUrlPatterns(null, true, "/*");
 				
 		final AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.register(Application.class);
+		context.register(AppConfig.class);
 		context.setServletContext(container);
 		
 	    container.addListener(new ContextLoaderListener(context));  

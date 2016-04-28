@@ -15,7 +15,7 @@ public class Characteristic implements com.aht.api.model.node.Characteristic {
 	private String name;
 	private String type;
 	@Relationship(type = "HAS", direction = Relationship.INCOMING)
-	private List<Dish> dishes = new LinkedList<>();
+	private List<Dish> dishes = new LinkedList<Dish>();
 		
 	public Characteristic() { }
 

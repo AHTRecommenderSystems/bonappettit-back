@@ -2,9 +2,8 @@ package com.aht.bonappettit.serviceimpl.node;
 
 import java.util.LinkedList;
 import org.neo4j.ogm.session.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import com.aht.bonappettit.repository.node.RestaurantRepository;
 import com.aht.bonappettit.service.node.RestaurantService;
 import com.aht.bonappettit.domain.node.Restaurant;
@@ -35,6 +34,6 @@ public class RestaurantServiceImpl implements RestaurantService{
 	}
 
 	public LinkedList<Restaurant> retrieveAll() {
-		return new LinkedList<>(session.loadAll(Restaurant.class));
+		return new LinkedList<Restaurant>(session.loadAll(Restaurant.class));
 	}
 }

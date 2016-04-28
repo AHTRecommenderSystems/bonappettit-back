@@ -21,17 +21,17 @@ public class Dish implements Item {
 	private String picture;
 	private String description;
 	@Relationship(type = "HAS", direction = Relationship.OUTGOING)
-	private List<Characteristic> characteristics = new LinkedList<>();
+	private List<Characteristic> characteristics = new LinkedList<Characteristic>();
 	@Relationship(type = "CLICKED")
-	private List<Click> clicks = new LinkedList<>();
+	private List<Click> clicks = new LinkedList<Click>();
 	@Relationship(type = "RATED")
-	private List<Rate> ratings = new LinkedList<>();
+	private List<Rate> ratings = new LinkedList<Rate>();
 	@Relationship(type = "UPLOADED")
-	private List<Upload> uploads = new LinkedList<>();
+	private List<Upload> uploads = new LinkedList<Upload>();
 	@Relationship(type = "AFFINITY")
-	private List<Affinity> affinities = new LinkedList<>();
+	private List<Affinity> affinities = new LinkedList<Affinity>();
 	@Relationship(type = "SERVED_AT", direction = Relationship.OUTGOING)
-	private List<Restaurant> restaurants = new LinkedList<>();
+	private List<Restaurant> restaurants = new LinkedList<Restaurant>();
 		
 	public Dish() { }
 
