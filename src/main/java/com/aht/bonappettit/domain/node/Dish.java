@@ -126,6 +126,13 @@ public class Dish implements Item {
 		if(!restaurants.contains(restaurant))
 			restaurants.add(restaurant);
 	}
+	
+	public LinkedList<Long> getCharacteristicsID() {
+		LinkedList<Long> ids = new LinkedList<Long>();
+		for(Characteristic characteristic : characteristics)
+			ids.add(characteristic.getId());
+		return ids;
+	}
 
 	@Override
 	public String toString() {

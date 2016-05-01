@@ -56,6 +56,13 @@ public class Characteristic implements com.aht.api.model.node.Characteristic {
 		if(!dishes.contains(dish))
 			dishes.add(dish);
 	}
+	
+	public LinkedList<Long> getDishesID() {
+		LinkedList<Long> ids = new LinkedList<Long>();
+		for(Dish dish: dishes)
+			ids.add(dish.getId());
+		return ids;
+	}
 
 	@Override
 	public String toString() {
