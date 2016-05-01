@@ -34,6 +34,6 @@ public class DishServiceImpl implements DishService {
 	}
 
 	public LinkedList<Dish> retrieveAll() {
-		return new LinkedList<Dish>(session.loadAll(Dish.class));
+		return new LinkedList<Dish>(session.loadAll(Dish.class, 0));
 	}
 }
