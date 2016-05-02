@@ -1,24 +1,27 @@
 package com.aht.bonappettit;
 
-import java.util.LinkedList;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import com.aht.bonappettit.domain.node.Characteristic;
 import com.aht.bonappettit.domain.node.Dish;
-import com.aht.bonappettit.serviceimpl.node.CharacteristicServiceImpl;
 import com.aht.bonappettit.serviceimpl.node.DishServiceImpl;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.ApplicationContext;
 
 public class Main {
 	public static void main(String[] args) {
 		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
 		
 		DishServiceImpl dishService = context.getBean(DishServiceImpl.class);
-		CharacteristicServiceImpl characteristicService = context.getBean(CharacteristicServiceImpl.class);
-		//Characteristic characteristic = service.retrieve(52);
+		Dish dish = dishService.retrieve(97);
+		System.out.println(dish.toString());
 		
+		
+		
+		
+		
+		/**
+		DishServiceImpl dishService = context.getBean(DishServiceImpl.class);
+		CharacteristicServiceImpl characteristicService = context.getBean(CharacteristicServiceImpl.class);
 		Dish dish = dishService.retrieve(97);
 		for(long characteristicID : dish.getCharacteristicsID()) {
 			System.out.println("characteristic --->" + characteristicService.retrieve(characteristicID).toString());
@@ -27,12 +30,13 @@ public class Main {
 				System.out.println("dish --->" + dishService.retrieve(dishID).toString());
 			}
 		}
+		 * 
+		 */
 
-			
-		
-		
-		
 		((ConfigurableApplicationContext) context).close();
+	}
+}
+
 /** crea una relación "HAS" entre una categoría y un platillo
 	Characteristic characteristic = new Characteristic();
 	Dish dish = new Dish();
@@ -89,5 +93,3 @@ public class Main {
 
 
 */
-	}
-}
