@@ -1,9 +1,7 @@
 package com.aht.bonappettit.serviceimpl.node;
 
-import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
-
+import java.util.Collection;
 import org.neo4j.ogm.session.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +36,5 @@ public class CharacteristicServiceImpl implements CharacteristicService {
 
 	public LinkedList<Characteristic> retrieveAll() {
 		return new LinkedList<Characteristic>(session.loadAll(Characteristic.class, 0));
-	}
-	
-	public Collection<Characteristic> todo() {
-		return session.loadAll(Characteristic.class);
 	}
 }
