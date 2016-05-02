@@ -1,5 +1,6 @@
-package com.aht.bonappettit;
+package com.aht.bonappettit.main;
 
+import com.aht.bonappettit.conf.AppConfig;
 import com.aht.bonappettit.domain.node.Dish;
 import com.aht.bonappettit.serviceimpl.node.DishServiceImpl;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

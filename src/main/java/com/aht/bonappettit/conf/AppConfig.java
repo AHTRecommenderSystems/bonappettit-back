@@ -1,4 +1,4 @@
-package com.aht.bonappettit;
+package com.aht.bonappettit.conf;
 
 import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.context.annotation.Bean;
