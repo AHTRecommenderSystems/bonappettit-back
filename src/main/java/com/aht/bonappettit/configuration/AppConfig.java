@@ -1,4 +1,4 @@
-package com.aht.bonappettit.conf;
+package com.aht.bonappettit.configuration;
 
 import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import org.springframework.data.neo4j.server.RemoteServer;
 import org.springframework.data.neo4j.server.Neo4jServer;
 
 @Configuration
-@ComponentScan("com.aht.bonappettit")
+@ComponentScan({"com.aht.bonappettit", "com.aht.api"})
 @EnableTransactionManagement
 //@EnableNeo4jRepositories("com.aht.neo4j.repository")
 @EnableNeo4jRepositories("com.aht.bonappettit.repository")
@@ -20,7 +20,7 @@ public class AppConfig extends Neo4jConfiguration {
 	@Override
 	@Bean
 	public Neo4jServer neo4jServer() {
-		return new RemoteServer("http://localhost:7474", "neo4j", "burros93");
+		return new RemoteServer("http://localhost:7474", "neo4j", "n0m3l0s3");
 	}
 
 	@Override

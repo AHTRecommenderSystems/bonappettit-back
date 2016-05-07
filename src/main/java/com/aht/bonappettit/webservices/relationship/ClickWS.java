@@ -37,6 +37,6 @@ public class ClickWS {
 		} catch(Exception exception) {
 			response.put("success", false);
 		}
-		return Response.status(200).entity(response.toString()).build();
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
 	}
 }

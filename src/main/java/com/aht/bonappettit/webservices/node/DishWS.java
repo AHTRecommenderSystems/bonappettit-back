@@ -7,6 +7,10 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
+
+import com.aht.api.recommender.ItemRecommenderCalculatedSimilitude;
+import com.aht.bonappettit.domain.node.Characteristic;
+import com.aht.bonappettit.serviceimpl.node.CharacteristicServiceImpl;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.aht.bonappettit.utils.FileHelper;
@@ -17,6 +21,8 @@ import com.aht.bonappettit.serviceimpl.node.DishServiceImpl;
 
 import java.io.InputStream;
 import java.util.LinkedList;
+import java.util.List;
+
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -26,8 +32,10 @@ public class DishWS {
 	private static final String directory = "/Users/hector9317/Documents/workspace/bonappettit-back/src/main/resources/";
 	
 	@Autowired DishServiceImpl service;
+	@Autowired CharacteristicServiceImpl serviceCharacteristic;
 	@Autowired FileHelper helper;
-	
+	@Autowired ItemRecommenderCalculatedSimilitude ircs;
+
 	@POST
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -53,7 +61,7 @@ public class DishWS {
 			response.put("id", dish.getId());
 		}
 		else response.put("success", false);
-		return Response.status(200).entity(response.toString()).build();
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
 	}
 	
 	@POST
@@ -74,7 +82,7 @@ public class DishWS {
 		} catch(Exception exception) {
 			response.put("success", false);
 		}
-		return Response.status(200).entity(response.toString()).build();
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
 	}
 	
 	@POST
@@ -97,7 +105,7 @@ public class DishWS {
 		} catch(Exception exception) {
 			response.put("success", false);
 		}
-		return Response.status(200).entity(response.toString()).build();
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
 	}
 	
 	@POST
@@ -113,7 +121,7 @@ public class DishWS {
 		} catch(Exception exception) {
 			response.put("success", false);
 		}
-		return Response.status(200).entity(response.toString()).build();
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
 	}
 
 	@POST
@@ -121,8 +129,20 @@ public class DishWS {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response retrieveAll() {
 		JSONObject response = new JSONObject();
-		JSONArray dishes = new JSONArray();
-		
+
+		try {
+			service.retrieveAll();
+
+
+			response.put("success", true);
+		} catch(Exception e) {
+			response.put("success", false);
+		}
+
+
+		/*
+				JSONArray dishes = new JSONArray();
+
 		try {
 			LinkedList<Dish> dishNodes = service.retrieveAll();
 			dishes.put(dishNodes);
@@ -131,6 +151,8 @@ public class DishWS {
 		} catch(Exception exception) {
 			response.put("success", false);
 		}
-		return Response.status(200).entity(response.toString()).build();
+*/
+
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
 	}
 }

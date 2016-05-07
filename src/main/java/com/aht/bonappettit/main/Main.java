@@ -1,24 +1,40 @@
 package com.aht.bonappettit.main;
 
-import com.aht.bonappettit.conf.AppConfig;
+import com.aht.api.recommender.ItemRecommenderCalculatedSimilitude;
+import com.aht.bonappettit.configuration.AppConfig;
+import com.aht.bonappettit.domain.node.Characteristic;
 import com.aht.bonappettit.domain.node.Dish;
+import com.aht.bonappettit.serviceimpl.node.CharacteristicServiceImpl;
 import com.aht.bonappettit.serviceimpl.node.DishServiceImpl;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Main {
 	public static void main(String[] args) {
 		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
-		
 		DishServiceImpl dishService = context.getBean(DishServiceImpl.class);
+		CharacteristicServiceImpl characteristicService = context.getBean(CharacteristicServiceImpl.class);
+
 		Dish dish = dishService.retrieve(97);
-		System.out.println(dish.toString());
-		
-		
-		
-		
+		List<Characteristic> characteristics = new LinkedList<Characteristic>();
+		for(Characteristic characteristic: dish.getCharacteristics()) {
+			characteristics.add(characteristicService.retrieve(characteristic.getId()));
+		}
+		dish.setCharacteristics(characteristics); //Now it has characteristics where I can iterate! Yei!
+
+		ItemRecommenderCalculatedSimilitude itemRecommenderCalculatedSimilitude = new ItemRecommenderCalculatedSimilitude();
+		System.out.println(itemRecommenderCalculatedSimilitude.getTopNRecommendationByItem(dish,5));
+
+		//DishServiceImpl dishService = context.getBean(DishServiceImpl.class);
+		//Dish dish = dishService.retrieve(111);
+		//ItemRecommenderCalculatedSimilitude itemRecommenderCalculatedSimilitude = new ItemRecommenderCalculatedSimilitude();
+		//System.out.println(itemRecommenderCalculatedSimilitude.getTopNRecommendationByItem(dish,5));
 		
 		/**
 		DishServiceImpl dishService = context.getBean(DishServiceImpl.class);

@@ -10,7 +10,6 @@ import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import com.aht.bonappettit.conf.AppConfig;
 import com.sun.jersey.spi.spring.container.servlet.SpringServlet;
 
 public class AppInitializer implements WebApplicationInitializer {
