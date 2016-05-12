@@ -28,32 +28,40 @@ public class UserWS {
 	@POST
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response create(@FormParam("name") String name, @FormParam("lastname") String lastname, @FormParam("lastnameII") String lastnameII, @FormParam("password") String password, @FormParam("gender") String gender, @FormParam("nationality") String nationality, @FormParam("birthdate") String birthdate, @FormParam("since") String since) {
-
-		JSONObject response = new JSONObject();
+	public Response create(
+			@FormParam("name") String name, 
+			@FormParam("email") String email, 
+			@FormParam("since") String since, 
+			@FormParam("gender") String gender, 
+			@FormParam("lastname") String lastname, 
+			@FormParam("password") String password, 
+			@FormParam("nationality") String nationality, 
+			@FormParam("birthdate") String birthdate) {
 		User user = new User();
+		JSONObject response = new JSONObject();
+		
 		try {
 			if(name != null)
 				user.setName(name);
+			if(email != null)
+				user.setEmail(email);
+			if(since != null)
+				user.setSince(since);
+			if(gender != null)
+				user.setGender(gender);
 			if(lastname != null)
 				user.setLastname(lastname);
 			if(password != null)
 				user.setPassword(password);
-			if(gender != null)
-				user.setGender(gender);
 			if(nationality != null)
 				user.setNationality(nationality);
 			if(birthdate != null)
 				user.setBirthdate(birthdate);
-			if(since != null)
-				user.setSince(since);
-			
 			user = userService.create(user);
 			if(user.getId() != null) {
 				response.put("success", true);
 				response.put("id", user.getId());
 			}
-			
 		} catch (ResultProcessingException exception) {
 			response.put("success", false);
 		}
@@ -94,7 +102,16 @@ public class UserWS {
 	@POST
 	@Path("/update")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response update(@FormParam("id") String id, @FormParam("name") String name, @FormParam("lastname") String lastname, @FormParam("lastnameII") String lastnameII, @FormParam("password") String password, @FormParam("gender") String gender, @FormParam("nationality") String nationality, @FormParam("birthdate") String birthdate, @FormParam("since") String since) {
+	public Response update(
+			@FormParam("id") String id, 
+			@FormParam("name") String name, 
+			@FormParam("email") String email, 
+			@FormParam("since") String since, 
+			@FormParam("gender") String gender, 
+			@FormParam("lastname") String lastname, 
+			@FormParam("password") String password, 
+			@FormParam("nationality") String nationality, 
+			@FormParam("birthdate") String birthdate) {
 		User user = new User();
 		JSONObject response = new JSONObject();
 		
@@ -102,18 +119,20 @@ public class UserWS {
 			user = userService.retrieve(Long.parseLong(id));
 			if(name != null)
 				user.setName(name);
+			if(email != null)
+				user.setEmail(email);
+			if(since != null)
+				user.setSince(since);
+			if(gender != null)
+				user.setGender(gender);
 			if(lastname != null)
 				user.setLastname(lastname);
 			if(password != null)
 				user.setPassword(password);
-			if(gender != null)
-				user.setGender(gender);
 			if(nationality != null)
 				user.setNationality(nationality);
 			if(birthdate != null)
 				user.setBirthdate(birthdate);
-			if(since != null)
-				user.setSince(since);
 			userService.update(user);
 			response.put("success", true);
 		} catch(Exception exception) {
@@ -155,4 +174,24 @@ public class UserWS {
 		}
 		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
 	}
+	
+	@POST
+	@Path("/login")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response login(@FormParam("email") String email, @FormParam("password") String password) {
+		JSONObject response = new JSONObject();
+		try {
+			User user = userService.login(email, password);
+			response.put("id", user.getId());
+			response.put("name", user.getName());
+			response.put("lastname", user.getLastname());
+			response.put("success", true);
+		} catch(Exception exception) {
+			response.put("success", false);
+		}
+		
+		userService.login(email, password);
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
+	}
+	
 }
