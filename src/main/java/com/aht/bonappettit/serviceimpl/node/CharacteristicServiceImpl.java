@@ -35,6 +35,6 @@ public class CharacteristicServiceImpl implements CharacteristicService {
 	}
 
 	public LinkedList<Characteristic> retrieveAll() {
-		return new LinkedList<Characteristic>(session.loadAll(Characteristic.class, 0));
+		return new LinkedList<Characteristic>(session.loadAll(Characteristic.class));
 	}
 }

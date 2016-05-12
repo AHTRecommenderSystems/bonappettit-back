@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 		return new LinkedList<User>(session.loadAll(User.class));
 	}
 
-	public User findByEmail(String email) {
-		return (User) session.queryForObject(User.class, "match (user:User {email: {email}}) return user", MapUtil.map("email", email));		
+	public User login(String email, String password) {
+		return (User) session.queryForObject(User.class, "match (user:User {email: {email}, password: {password}}) return user", MapUtil.map("email", email, "password", password));		
 	}
 }
