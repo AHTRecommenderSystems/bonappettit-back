@@ -134,11 +134,6 @@ public class Dish implements Item {
 		return ids;
 	}
 
-	@Override
-	public String toString() {
-		return "id: " + id + " name: " + name + " picture: " + picture + " description: " + description;
-	}
-
 	public Object getModelId() {
 		return id;
 	}
@@ -153,5 +148,10 @@ public class Dish implements Item {
 
 	public List<com.aht.api.model.relationship.Affinity> getModelAffinities() {
 		return (List<com.aht.api.model.relationship.Affinity>)(Object)affinities;
+	}
+
+	@Override
+	public String toString() {
+		return "id: " + id + " name: " + name + " picture: " + picture + " description: " + description;
 	}
 }
