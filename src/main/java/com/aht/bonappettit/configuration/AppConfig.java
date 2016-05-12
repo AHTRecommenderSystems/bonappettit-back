@@ -13,7 +13,6 @@ import org.springframework.data.neo4j.server.Neo4jServer;
 @Configuration
 @ComponentScan({"com.aht.bonappettit", "com.aht.api"})
 @EnableTransactionManagement
-//@EnableNeo4jRepositories("com.aht.neo4j.repository")
 @EnableNeo4jRepositories("com.aht.bonappettit.repository")
 public class AppConfig extends Neo4jConfiguration {
 
