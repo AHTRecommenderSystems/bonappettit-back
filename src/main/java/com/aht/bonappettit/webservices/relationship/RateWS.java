@@ -28,12 +28,15 @@ public class RateWS {
 	@POST
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response create(@FormParam("idUser") String idUser, @FormParam("idDish") String idDish, @FormParam("value") String value) {
+	public Response create(@FormParam("on") String on,
+			@FormParam("idUser") String idUser,
+			@FormParam("idDish") String idDish,
+			@FormParam("value") String value) {
 		JSONObject response = new JSONObject();
 		try {
 			User user = userService.retrieve(Long.parseLong(idUser));
 			Dish dish = dishService.retrieve(Long.parseLong(idDish));
-			Rate rate = new Rate(user, dish, Float.parseFloat(value));
+			Rate rate = new Rate(user, dish, Double.parseDouble(value), on);
 			rateService.create(rate);
 			response.put("success", true);
 		} catch(Exception exception) {

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.aht.bonappettit.serviceimpl.node.DishServiceImpl;
+import com.aht.bonappettit.serviceimpl.node.RestaurantServiceImpl;
 import com.aht.bonappettit.domain.node.Characteristic;
 import com.aht.bonappettit.domain.node.Restaurant;
 import com.sun.jersey.multipart.FormDataParam;
@@ -27,6 +28,7 @@ public class DishWS {
 	private static final String directory = "/home/hector9317/workspace/bonappettit-back/src/main/webapp/images/";
 	@Autowired FileHelper helper;
 	@Autowired DishServiceImpl service;
+	@Autowired RestaurantServiceImpl restaurantService;
 
 	@POST
 	@Path("/create")
@@ -170,6 +172,7 @@ public class DishWS {
 				json.put("name", dish.getName());
 				json.put("description", dish.getDescription());
 				json.put("picture", dish.getPicture());
+				json.put("averageRating", dish.getAverageRating());
 				JSONArray restaurants = new JSONArray();
 				for(Restaurant restaurant : dish.getRestaurants()) {
 					JSONObject rs = new JSONObject();
@@ -189,6 +192,26 @@ public class DishWS {
 			response.put("data", data);
 			response.put("success", true);
 		} catch(Exception exception) {
+			response.put("success", false);
+		}
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
+	}
+	
+	
+	@POST
+	@Path("/servedAt")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response servetAt(@FormParam("idUser") String idUser, @FormParam("idRestaurant") String idRestaurant) {
+		JSONObject response;
+		try {
+			response = new JSONObject();
+			Dish dish = new Dish();
+			Restaurant restaurant = restaurantService.retrieve(Long.parseLong(idRestaurant));
+			dish.addRestaurant(restaurant);
+			restaurant.addDish(dish);
+			response.put("success", true);
+		} catch(Exception exception) { 
+			response = new JSONObject();
 			response.put("success", false);
 		}
 		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
