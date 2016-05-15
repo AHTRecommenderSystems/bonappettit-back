@@ -13,10 +13,20 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FileHelper {
-	public void sayHello() {
-		System.out.println("Hola mundo we!");
+	public String hashFunction(String filename, String dishName) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		String date = dateFormat.format(new Date());
+		String name = filename + dishName + date; 
+		try {
+			MessageDigest md = MessageDigest.getInstance("md5");
+			md.update(name.getBytes(), 0, name.length());
+			String hashed = new BigInteger(1, md.digest()).toString(64);
+			return hashed;
+		} catch(Exception exception) {
+			return null;
+		}
 	}
-	
+
 	public boolean createFile(InputStream inputStream, String directory) {
 		try {
 			int read = 0;
@@ -30,18 +40,11 @@ public class FileHelper {
 			return true;
 		} catch (IOException e) { return false; }
 	}
-
-	public String hashFunction(String filename, String dishName) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		String date = dateFormat.format(new Date());
-		String name = filename + dishName + date; 
+	
+	public boolean deleteFile(String directory, String filename) {
 		try {
-			MessageDigest md = MessageDigest.getInstance("md5");
-			md.update(name.getBytes(), 0, name.length());
-			String hashed = new BigInteger(1, md.digest()).toString(64);
-			return hashed;
-		} catch(Exception exception) {
-			return null;
-		}
+			File file = new File(directory + filename);
+			return file.delete();	
+		} catch(Exception exception) { return false;}
 	}
 }
