@@ -150,8 +150,15 @@ public class Dish implements Item {
 		return (List<com.aht.api.model.relationship.Affinity>)(Object)affinities;
 	}
 
+	public double getAverageRating() {
+		double mean = 0;
+		for(Rate rate : ratings)
+			mean += rate.getValue();
+		return mean / ratings.size();
+	} 
+
 	@Override
 	public String toString() {
 		return "id: " + id + " name: " + name + " picture: " + picture + " description: " + description;
-	}
+	}	
 }

@@ -20,7 +20,8 @@ public class Rate implements Event {
 	
 	public Rate() { }
 
-	public Rate(User user, Dish dish, float value) {
+	public Rate(User user, Dish dish, double value, String on) {
+		this.on = on;
 		this.user = user;
 		this.dish = dish;
 		this.value = value;
@@ -55,7 +56,15 @@ public class Rate implements Event {
 	public void setOn(String on) {
 		this.on = on;
 	}
+	
+	public double getValue() {
+		return value;
+	}
 
+	public void setValue(double value) {
+		this.value = value;
+	}
+	
 	public Item getItem() {
 		return dish;
 	}
