@@ -151,14 +151,23 @@ public class Dish implements Item {
 	}
 
 	public double getAverageRating() {
-		double mean = 0;
-		for(Rate rate : ratings)
-			mean += rate.getValue();
-		return mean / ratings.size();
+		if(ratings.size() > 0 ) {
+			double mean = 0;
+			for (Rate rate : ratings)
+				mean += rate.getValue();
+			return mean / ratings.size();
+		} else {
+			return 0;
+		}
 	} 
 
 	@Override
 	public String toString() {
 		return "id: " + id + " name: " + name + " picture: " + picture + " description: " + description;
-	}	
+	}
+
+	public void removeCharacteristic(Characteristic characteristic) {
+		if(characteristics.contains(characteristic))
+			characteristics.remove(characteristic);
+	}
 }

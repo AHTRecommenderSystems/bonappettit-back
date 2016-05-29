@@ -1,9 +1,7 @@
 package com.aht.bonappettit.webservices.node;
 
-import javax.ws.rs.Path;
-import javax.ws.rs.POST;
-import javax.ws.rs.Produces;
-import javax.ws.rs.FormParam;
+import javax.print.attribute.standard.Media;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
 import org.springframework.stereotype.Component;
@@ -20,13 +18,14 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 @Component
-@Path("/userws")
+@Path("/users")
 public class UserWS {
 	@Autowired UserServiceImpl userService;
 	
 	@POST
-	@Path("/create")
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response create(
 			@FormParam("name") String name, 
 			@FormParam("email") String email, 
@@ -66,10 +65,10 @@ public class UserWS {
 		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
 	}
 	
-	@POST
-	@Path("/retrieve")
+	@GET
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response retrieve(@FormParam("id") String id) {
+	public Response retrieve(@PathParam("id") String id) {
 		User user = new User();
 		JSONObject response = new JSONObject();
 		try {
@@ -94,12 +93,13 @@ public class UserWS {
 		} catch(Exception exception) {
 			response.put("success", false);
 		} 
-		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "GET").build();
 	}
 	
-	@POST
-	@Path("/update")
+	@PUT
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response update(
 			@FormParam("id") String id, 
 			@FormParam("name") String name, 
@@ -135,13 +135,13 @@ public class UserWS {
 		} catch(Exception exception) {
 			response.put("success", false);
 		}
-		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "PUT").build();
 	}
 	
-	@POST
-	@Path("/delete")
+	@DELETE
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response delete(@FormParam("id") String id) {
+	public Response delete(@PathParam("id") String id) {
 		User user = new User();
 		JSONObject response = new JSONObject();
 		try {
@@ -152,11 +152,11 @@ public class UserWS {
 			exception.printStackTrace();
 			response.put("success", false);
 		}
-		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "DELETE").build();
 	}
 	
-	@POST
-	@Path("/retrieveAll")
+	@GET
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response retrieveAll() {
 		JSONObject response = new JSONObject();
@@ -169,12 +169,13 @@ public class UserWS {
 		} catch (Exception exception) {
 			response.put("success", false);
 		}
-		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "GET").build();
 	}
 	
 	@POST
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response login(@FormParam("email") String email, @FormParam("password") String password) {
 		JSONObject response = new JSONObject();
 		try {
@@ -186,11 +187,13 @@ public class UserWS {
 		} catch(Exception exception) {
 			response.put("success", false);
 		}
-		userService.login(email, password);
 		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
 	}
-	
-	public Response getDishes(@FormParam("id") String id) {
+
+	@GET
+	@Path("/{id}/dishes")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getDishes(@PathParam("id") String id) {
 		JSONObject response;
 		User user = new User();
 		JSONArray dishes = new JSONArray();
@@ -227,6 +230,6 @@ public class UserWS {
 			response = new JSONObject();
 			response.put("success", false);
 		}
-		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "GET").build();
 	}
 }

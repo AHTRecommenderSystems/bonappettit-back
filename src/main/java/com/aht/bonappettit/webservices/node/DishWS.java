@@ -1,14 +1,14 @@
 package com.aht.bonappettit.webservices.node;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.annotation.Generated;
+import javax.ws.rs.*;
 import java.io.InputStream;
 import java.util.LinkedList;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Produces;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
+
+import com.aht.bonappettit.serviceimpl.node.CharacteristicServiceImpl;
+import com.sun.media.jfxmedia.Media;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.sun.jersey.core.header.FormDataContentDisposition;
@@ -23,145 +23,18 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 @Component
-@Path("/dishws")
+@Path("/dishes")
 public class DishWS {
 	private static final String directory = "/home/hector9317/workspace/bonappettit-back/src/main/webapp/images/";
 	@Autowired FileHelper helper;
 	@Autowired DishServiceImpl service;
+	@Autowired CharacteristicServiceImpl characteristicService;
 	@Autowired RestaurantServiceImpl restaurantService;
 
-	@POST
-	@Path("/create")
+	@GET
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response create(
-			@FormDataParam("name") String name,
-			@FormDataParam("file") InputStream inputStream,
-			@FormDataParam("description") String description,
-			@FormDataParam("file") FormDataContentDisposition content) {
-		Dish dish = new Dish();
-		JSONObject response;
-		String received = content.getFileName();
-		String ext = received.substring(received.lastIndexOf("."), received.length());
-		try {
-			response = new JSONObject();
-			String filename = helper.hashFunction(received, name) + ext;
-			if(description != null)
-				dish.setDescription(description);
-			if(name != null)
-				dish.setName(name);
-			if(helper.createFile(inputStream, directory + filename)) {
-				dish = service.create(dish);
-				response.put("id", dish.getId());
-			}
-			response.put("success", true);
-		} catch(Exception exception) {
-			response = new JSONObject();
-			response.put("success", false);
-		}
-		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
-	}
-	
-	@POST
-	@Path("/retrieve")
-	@Produces(MediaType.APPLICATION_JSON)
- 	public Response retrieve(@FormParam("id") String id) {
-		Dish dish = new Dish();
-		JSONObject response;
-		JSONArray restaurants = new JSONArray();
-		JSONArray characteristics = new JSONArray();
-		try {
-			response = new JSONObject();
-			dish = service.retrieve(Long.parseLong(id));
-			response.put("name", dish.getName());
-			response.put("description", dish.getDescription());
-			response.put("picture", dish.getPicture());
-			response.put("averageRating", dish.getAverageRating());
-			for(Characteristic c : dish.getCharacteristics()) {
-				JSONObject characteristic = new JSONObject();
-				characteristic.put("id", c.getId());
-				characteristic.put("name", c.getName());
-				characteristic.put("type", c.getType());
-				characteristics.put(characteristic);
-			}
-			for(Restaurant r : dish.getRestaurants()) {
-				JSONObject restaurant = new JSONObject();
-				restaurant.put("id", r.getId());
-				restaurant.put("name", r.getName());
-				restaurant.put("type", r.getType());
-				restaurant.put("address", r.getAddress());
-				restaurant.put("longitude", r.getLongitude());
-				restaurant.put("latitude", r.getLatitude());
-				restaurant.put("avg_price", r.getAvg_price());
-				restaurant.put("url", r.getURL());
-				restaurants.put(restaurant);
-			}
-			response.put("characteristics", characteristics);
-			response.put("restaurants", restaurants);
-			response.put("success", true);
-		} catch(Exception exception) {
-			response = new JSONObject();
-			response.put("success", false);
-		}
-		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
-	}
-
-	@POST
-	@Path("/update")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response update(
-			@FormDataParam("id") String id,
-			@FormDataParam("name") String name,
-			@FormDataParam("file") InputStream inputStream,
-			@FormDataParam("description") String description,
-			@FormDataParam("file") FormDataContentDisposition content) {
-		
-		Dish dish = new Dish();
-		JSONObject response;
-		String received = content.getFileName();
-		String ext = received.substring(received.lastIndexOf("."), received.length());
-		try {
-			response = new JSONObject();
-			dish = service.retrieve(Long.parseLong(id));
-			String filename = helper.hashFunction(received, name) + ext;
-			if(description != null)
-				dish.setDescription(description);
-			if(name != null)
-				dish.setName(name);
-			if(helper.createFile(inputStream, directory + filename) && helper.deleteFile(directory, dish.getPicture())) {
-				service.update(dish);
-				response.put("success", true);	
-			}
-		} catch(Exception exception) {
-			response = new JSONObject();
-			response.put("success", false);
-		}
-		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
-	}
-
-	@POST
-	@Path("delete")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response delete(@FormParam("id") String id) {
-		Dish dish = new Dish();
-		JSONObject response;
-		try {
-			response = new JSONObject();
-			dish = service.retrieve(Long.parseLong(id));
-			service.delete(dish);
-			response.put("success", true);
-		} catch(Exception exception) {
-			response = new JSONObject();
-			response.put("success", false);
-		}
-		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
-	}
-
-	@POST
-	@Path("retrieveAll")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response retrieveAll() {
+	public Response retrieveAll(){
 		JSONArray data = new JSONArray();
 		JSONObject response = new JSONObject();
 		try {
@@ -192,15 +65,145 @@ public class DishWS {
 			response.put("data", data);
 			response.put("success", true);
 		} catch(Exception exception) {
+			exception.printStackTrace();
 			response.put("success", false);
+		}
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "GET").build();
+	}
+
+	@POST
+	@Path("/")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response crear(
+			@FormParam("name") String name,
+			@FormParam("description") String description,
+			@FormParam("picture") String picture,
+			@FormParam("userId") String userId) {
+		JSONObject response = new JSONObject();
+		Dish dish = new Dish();
+		try{
+			if(name != null)
+				dish.setName(name);
+			if(description != null)
+				dish.setDescription(description);
+			if(picture != null)
+				dish.setPicture(picture);
+			//if(userId != null)
+			//TODO: Who has uploaded this dish? add userId to "uploads"
+			dish = service.create(dish);
+			response.put("id",dish.getId());
+			response.put("success", true);
+		}catch(Exception e){
+			response.put("success",false);
 		}
 		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
 	}
-	
-	
+
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response retrieve(@PathParam("id") String id) {
+		Dish dish = new Dish();
+		JSONObject data = new JSONObject();
+		JSONObject response;
+		JSONArray restaurants = new JSONArray();
+		JSONArray characteristics = new JSONArray();
+		try {
+			response = new JSONObject();
+			dish = service.retrieve(Long.parseLong(id));
+			data.put("id", dish.getId());
+			data.put("name", dish.getName());
+			data.put("description", dish.getDescription());
+			data.put("picture", dish.getPicture());
+			data.put("averageRating", dish.getAverageRating());
+			for(Characteristic c : dish.getCharacteristics()) {
+				JSONObject characteristic = new JSONObject();
+				characteristic.put("id", c.getId());
+				characteristic.put("name", c.getName());
+				characteristic.put("type", c.getType());
+				characteristics.put(characteristic);
+			}
+			for(Restaurant r : dish.getRestaurants()) {
+				JSONObject restaurant = new JSONObject();
+				restaurant.put("id", r.getId());
+				restaurant.put("name", r.getName());
+				restaurant.put("type", r.getType());
+				restaurant.put("address", r.getAddress());
+				restaurant.put("longitude", r.getLongitude());
+				restaurant.put("latitude", r.getLatitude());
+				restaurant.put("avg_price", r.getAvg_price());
+				restaurant.put("url", r.getURL());
+				restaurants.put(restaurant);
+			}
+			data.put("characteristics", characteristics);
+			data.put("restaurants", restaurants);
+			response.put("data",data);
+			response.put("success", true);
+		} catch(Exception exception) {
+			response = new JSONObject();
+			response.put("success", false);
+			exception.printStackTrace();
+		}
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "GET").build();
+	}
+
+	@PUT
+	@Path("/")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response update(
+			@FormParam("id") String id,
+			@FormParam("name") String name,
+			@FormParam("picture") String picture,
+			@FormParam("description") String description) {
+		Dish dish = new Dish();
+		JSONObject response;
+		try {
+			response = new JSONObject();
+			dish = service.retrieve(Long.parseLong(id));
+			if(description != null)
+				dish.setDescription(description);
+			if(name != null)
+				dish.setName(name);
+			if(picture != null)
+				dish.setPicture(picture);
+			service.update(dish);
+			response.put("success", true);
+		} catch(Exception exception) {
+			response = new JSONObject();
+			response.put("success", false);
+			exception.printStackTrace();
+		}
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "PUT").build();
+	}
+
+	@DELETE
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response delete(@PathParam("id") String id) {
+		Dish dish = new Dish();
+		JSONObject response;
+		try {
+			response = new JSONObject();
+			dish = service.retrieve(Long.parseLong(id));
+			service.delete(dish);
+			response.put("success", true);
+		} catch(Exception exception) {
+			response = new JSONObject();
+			response.put("success", false);
+		}
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "DELETE").build();
+	}
+
+
+
+
 	@POST
 	@Path("/servedAt")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response servetAt(@FormParam("idUser") String idUser, @FormParam("idRestaurant") String idRestaurant) {
 		JSONObject response;
 		try {
@@ -210,10 +213,47 @@ public class DishWS {
 			dish.addRestaurant(restaurant);
 			restaurant.addDish(dish);
 			response.put("success", true);
-		} catch(Exception exception) { 
+		} catch(Exception exception) {
 			response = new JSONObject();
 			response.put("success", false);
 		}
 		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
 	}
+
+	@POST
+	@Path("/characteristics")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response addCharacteristic(@FormParam("idCategory") String idCategory, @FormParam("idDish") String idDish){
+		JSONObject response = new JSONObject();
+		try{
+			Dish dish = service.retrieve(Long.parseLong(idDish));
+			Characteristic characteristic = characteristicService.retrieve(Long.parseLong(idCategory));
+			dish.addCharacteristic(characteristic);
+			service.update(dish);
+			response.put("status",true);
+		} catch(Exception e){
+			response.put("status",false);
+		}
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
+	}
+
+	@POST
+	@Path("/characteristics/delete")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response removeCharacteristic(@FormParam("idCategory") String idCategory, @FormParam("idDish") String idDish){
+		JSONObject response = new JSONObject();
+		try{
+			Dish dish = service.retrieve(Long.parseLong(idDish));
+			Characteristic characteristic = characteristicService.retrieve(Long.parseLong(idCategory));
+			dish.removeCharacteristic(characteristic);
+			service.update(dish);
+			response.put("status",true);
+		} catch(Exception e){
+			response.put("status",false);
+		}
+		return Response.status(200).entity(response.toString()).header("Access-Control-Allow-Origin", "http://localhost:3000").header("Access-Control-Allow-Methods", "POST").build();
+	}
+
 }
