@@ -1,7 +1,7 @@
 package com.aht.bonappettit.webservices.relationship;
 
-import javax.ws.rs.FormParam;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.json.JSONObject;
@@ -21,7 +21,11 @@ public class UploadWS {
 	@Autowired UserServiceImpl userService;
 	@Autowired DishServiceImpl dishService;
 	@Autowired UploadServiceImpl uploadService;
-	
+
+	@POST
+	@Path("/create")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response create(@FormParam("userId") String userId, @FormParam("dishId") String dishId, @FormParam("on") String on) {
 		JSONObject response = new JSONObject();
 		try {

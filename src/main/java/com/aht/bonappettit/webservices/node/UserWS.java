@@ -33,7 +33,7 @@ public class UserWS {
 			@FormParam("gender") String gender, 
 			@FormParam("lastname") String lastname, 
 			@FormParam("password") String password, 
-			@FormParam("nationality") String nationality, 
+			@FormParam("country") String nationality,
 			@FormParam("birthdate") String birthdate) {
 		User user = new User();
 		JSONObject response = new JSONObject();
@@ -71,24 +71,22 @@ public class UserWS {
 	public Response retrieve(@PathParam("id") String id) {
 		User user = new User();
 		JSONObject response = new JSONObject();
+		JSONObject data = new JSONObject();
 		try {
 			user = userService.retrieve(Long.parseLong(id));
 			if(user.getName() != null)
-				response.put("name", user.getName());
+				data.put("name", user.getName());
 			if(user.getLastname() != null)
-				response.put("lastname", user.getLastname());
-			if(user.getPassword() != null)
-				response.put("password", user.getPassword());
+				data.put("lastname", user.getLastname());
 			if(user.getGender() != null)
-				response.put("gender", user.getGender());
+				data.put("gender", user.getGender());
 			if(user.getNationality() != null)
-				response.put("nationality", user.getNationality());
+				data.put("country", user.getNationality());
 			if(user.getBirthdate() != null)
-				response.put("birthdate", user.getBirthdate());
-			if(user.getEmail() != null)
-				response.put("email", user.getEmail());
+				data.put("birthdate", user.getBirthdate());
 			if(user.getSince() != null)
-				response.put("since", user.getSince());
+				data.put("since", user.getSince());
+			response.put("data", data);
 			response.put("success", true);
 		} catch(Exception exception) {
 			response.put("success", false);

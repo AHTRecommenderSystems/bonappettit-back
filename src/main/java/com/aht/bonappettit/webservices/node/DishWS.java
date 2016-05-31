@@ -3,6 +3,9 @@ package com.aht.bonappettit.webservices.node;
 import javax.annotation.Generated;
 import javax.ws.rs.*;
 import java.io.InputStream;
+import java.text.Collator;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
@@ -39,6 +42,16 @@ public class DishWS {
 		JSONObject response = new JSONObject();
 		try {
 			LinkedList<Dish> dishes = service.retrieveAll();
+			Collections.sort(dishes, new Comparator<Dish>(){
+				@Override
+				public int compare(Dish d1,Dish d2){
+					if(d1.getAverageRating() < d2.getAverageRating()){
+						return 1;
+					} else {
+						return -1;
+					}
+				}
+			});
 			for(Dish dish : dishes) {
 				JSONObject json = new JSONObject();
 				json.put("id", dish.getId());
@@ -78,8 +91,7 @@ public class DishWS {
 	public Response crear(
 			@FormParam("name") String name,
 			@FormParam("description") String description,
-			@FormParam("picture") String picture,
-			@FormParam("userId") String userId) {
+			@FormParam("picture") String picture) {
 		JSONObject response = new JSONObject();
 		Dish dish = new Dish();
 		try{
@@ -89,8 +101,6 @@ public class DishWS {
 				dish.setDescription(description);
 			if(picture != null)
 				dish.setPicture(picture);
-			//if(userId != null)
-			//TODO: Who has uploaded this dish? add userId to "uploads"
 			dish = service.create(dish);
 			response.put("id",dish.getId());
 			response.put("success", true);
